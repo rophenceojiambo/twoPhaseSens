@@ -1,0 +1,10 @@
+---
+title: "Getting started with twoPhaseSens"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with twoPhaseSens}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+> Development placeholder. This vignette will be completed after the generalized estimators reproduce the manuscript results.
