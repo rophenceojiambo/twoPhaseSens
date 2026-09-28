@@ -1,8 +1,10 @@
 #' Plot sensitivity-analysis estimates and confidence intervals
 #'
-#' Creates a forest plot from a [twophase_sensitivity()] object. Each method is
-#' displayed as a point estimate with its stored confidence interval. With
-#' multiple outcomes, outcomes are shown in separate facets.
+#' Creates a publication-style forest plot from a [twophase_sensitivity()]
+#' object. Each method is shown with a method-specific color and symbol,
+#' horizontal confidence interval, and optional right-side text columns for the
+#' formatted coefficient/CI and p value. With multiple outcomes, outcomes are
+#' shown in separate facets.
 #'
 #' @param x A `twophase_sensitivity` object.
 #' @param outcome Optional character vector selecting one or more outcomes.
@@ -18,6 +20,12 @@
 #' @param x_label Optional x-axis label. If `NULL`, a label is generated from
 #'   the confidence level stored in the analysis object.
 #' @param title Optional plot title.
+#' @param annotate Logical; if `TRUE` (default), add manuscript-style
+#'   right-side columns for the coefficient with confidence interval and p
+#'   value.
+#' @param estimate_digits Number of digits used in the coefficient and
+#'   confidence-interval annotation.
+#' @param p_digits Number of digits used in the p-value annotation.
 #'
 #' @return A `ggplot` object.
 #'
@@ -31,13 +39,19 @@ plot_sensitivity <- function(
   reference_line = 0,
   facet_scales = c("free_x", "fixed"),
   x_label = NULL,
-  title = NULL
+  title = NULL,
+  annotate = TRUE,
+  estimate_digits = 3L,
+  p_digits = 3L
 ) {
   if (!inherits(x, "twophase_sensitivity")) {
     stop("`x` must be a twophase_sensitivity object.", call. = FALSE)
   }
 
   facet_scales <- match.arg(facet_scales)
+  .validate_plot_flag(annotate, "annotate")
+  .validate_table_digits(estimate_digits, "estimate_digits")
+  .validate_table_digits(p_digits, "p_digits")
 
   outcomes <- x$specification$outcome
   methods <- x$specification$methods
@@ -159,18 +173,34 @@ plot_sensitivity <- function(
     x_label <- paste0("Coefficient (", conf_text, "% CI)")
   }
 
+  d$estimate_text <- sprintf(
+    paste0("%.", estimate_digits, "f (%.", estimate_digits, "f to %.", estimate_digits, "f)"),
+    d$estimate,
+    d$conf_low,
+    d$conf_high
+  )
+  d$p_text <- .format_p(d$p_value, digits = p_digits)
+
+  method_colors <- .twophasesens_method_colors[methods]
+  method_shapes <- .twophasesens_method_shapes[methods]
+  method_linetypes <- .twophasesens_method_linetypes[methods]
+
   p <- ggplot2::ggplot(
     d,
     ggplot2::aes(
       x = estimate,
-      y = method_display
+      y = method_display,
+      color = method,
+      shape = method
     )
   )
 
   if (!is.null(reference_line)) {
     p <- p + ggplot2::geom_vline(
       xintercept = reference_line,
-      linetype = 2
+      linetype = 3,
+      linewidth = 0.55,
+      color = "grey45"
     )
   }
 
@@ -180,23 +210,128 @@ plot_sensitivity <- function(
         x = conf_low,
         xend = conf_high,
         y = method_display,
-        yend = method_display
+        yend = method_display,
+        linetype = method
       ),
-      linewidth = 0.7
+      linewidth = 0.8,
+      show.legend = FALSE
     ) +
-    ggplot2::geom_point(size = 2.4) +
+    ggplot2::geom_point(
+      size = 3.0,
+      stroke = 0.95,
+      fill = "white"
+    ) +
+    ggplot2::scale_color_manual(
+      values = method_colors,
+      breaks = methods,
+      labels = unname(method_display)
+    ) +
+    ggplot2::scale_shape_manual(
+      values = method_shapes,
+      breaks = methods,
+      labels = unname(method_display)
+    ) +
+    ggplot2::scale_linetype_manual(values = method_linetypes) +
     ggplot2::labs(
       x = x_label,
       y = NULL,
-      title = title
+      title = title,
+      color = NULL,
+      shape = NULL
     ) +
-    ggplot2::theme_minimal(base_size = 11) +
+    ggplot2::theme_classic(base_size = 11) +
     ggplot2::theme(
-      panel.grid.major.y = ggplot2::element_blank(),
-      panel.grid.minor = ggplot2::element_blank(),
-      axis.text.y = ggplot2::element_text(),
-      strip.text = ggplot2::element_text(face = "bold")
+      axis.text.y = ggplot2::element_text(color = "black"),
+      axis.text.x = ggplot2::element_text(color = "black"),
+      axis.title.x = ggplot2::element_text(color = "black"),
+      plot.title = ggplot2::element_text(face = "bold", hjust = 0),
+      strip.background = ggplot2::element_blank(),
+      strip.text = ggplot2::element_text(face = "bold", color = "black"),
+      legend.position = "bottom",
+      legend.direction = "horizontal",
+      legend.box = "horizontal",
+      legend.text = ggplot2::element_text(color = "black"),
+      plot.margin = ggplot2::margin(5.5, 12, 5.5, 5.5)
     )
+
+  if (isTRUE(annotate)) {
+    ranges <- lapply(split(d, d$outcome_display), function(z) {
+      vals <- c(z$conf_low, z$conf_high)
+      span <- diff(range(vals, finite = TRUE))
+      if (!is.finite(span) || span <= 0) {
+        span <- max(abs(vals), na.rm = TRUE)
+      }
+      if (!is.finite(span) || span <= 0) {
+        span <- 1
+      }
+
+      xmax <- max(vals, finite = TRUE)
+      c(
+        estimate_x = xmax + 0.22 * span,
+        p_x = xmax + 0.86 * span,
+        header_y = length(methods) + 0.55
+      )
+    })
+
+    d$estimate_x <- vapply(
+      as.character(d$outcome_display),
+      function(z) ranges[[z]][["estimate_x"]],
+      numeric(1)
+    )
+    d$p_x <- vapply(
+      as.character(d$outcome_display),
+      function(z) ranges[[z]][["p_x"]],
+      numeric(1)
+    )
+
+    header <- data.frame(
+      outcome_display = factor(unname(outcome_display), levels = unname(outcome_display)),
+      method_display = factor(rep(NA_character_, length(outcomes)), levels = levels(d$method_display)),
+      estimate_x = vapply(unname(outcome_display), function(z) ranges[[z]][["estimate_x"]], numeric(1)),
+      p_x = vapply(unname(outcome_display), function(z) ranges[[z]][["p_x"]], numeric(1)),
+      header_y = vapply(unname(outcome_display), function(z) ranges[[z]][["header_y"]], numeric(1)),
+      stringsAsFactors = FALSE
+    )
+
+    p <- p +
+      ggplot2::geom_text(
+        data = d,
+        ggplot2::aes(x = estimate_x, label = estimate_text),
+        hjust = 0,
+        color = "black",
+        size = 3.25,
+        inherit.aes = FALSE
+      ) +
+      ggplot2::geom_text(
+        data = d,
+        ggplot2::aes(x = p_x, label = p_text),
+        hjust = 0,
+        color = "black",
+        size = 3.25,
+        inherit.aes = FALSE
+      ) +
+      ggplot2::geom_text(
+        data = header,
+        ggplot2::aes(x = estimate_x, y = header_y, label = "Coefficient (95% CI)"),
+        hjust = 0,
+        vjust = 0,
+        fontface = "bold",
+        color = "black",
+        size = 3.35,
+        inherit.aes = FALSE
+      ) +
+      ggplot2::geom_text(
+        data = header,
+        ggplot2::aes(x = p_x, y = header_y, label = "P value"),
+        hjust = 0,
+        vjust = 0,
+        fontface = "bold",
+        color = "black",
+        size = 3.35,
+        inherit.aes = FALSE
+      ) +
+      ggplot2::coord_cartesian(clip = "off")
+  }
 
   if (length(outcomes) > 1L) {
     p <- p + ggplot2::facet_wrap(
@@ -206,6 +341,13 @@ plot_sensitivity <- function(
   }
 
   p
+}
+
+.validate_plot_flag <- function(x, arg) {
+  if (!is.logical(x) || length(x) != 1L || is.na(x)) {
+    stop("`", arg, "` must be TRUE or FALSE.", call. = FALSE)
+  }
+  invisible(TRUE)
 }
 
 #' Plot a twophase_sensitivity object
