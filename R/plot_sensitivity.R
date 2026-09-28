@@ -269,7 +269,6 @@ plot_sensitivity <- function(
       c(
         estimate_x = xmax + 0.22 * span,
         p_x = xmax + 0.86 * span,
-        header_y = length(methods) + 0.55
       )
     })
 
@@ -286,17 +285,16 @@ plot_sensitivity <- function(
 
     header <- data.frame(
       outcome_display = factor(unname(outcome_display), levels = unname(outcome_display)),
-      method_display = factor(rep(NA_character_, length(outcomes)), levels = levels(d$method_display)),
+      method_display = factor(rep(unname(method_display)[1L], length(outcomes)), levels = levels(d$method_display)),
       estimate_x = vapply(unname(outcome_display), function(z) ranges[[z]][["estimate_x"]], numeric(1)),
       p_x = vapply(unname(outcome_display), function(z) ranges[[z]][["p_x"]], numeric(1)),
-      header_y = vapply(unname(outcome_display), function(z) ranges[[z]][["header_y"]], numeric(1)),
       stringsAsFactors = FALSE
     )
 
     p <- p +
       ggplot2::geom_text(
         data = d,
-        ggplot2::aes(x = estimate_x, label = estimate_text),
+        ggplot2::aes(x = estimate_x, y = method_display, label = estimate_text),
         hjust = 0,
         color = "black",
         size = 3.25,
@@ -304,7 +302,7 @@ plot_sensitivity <- function(
       ) +
       ggplot2::geom_text(
         data = d,
-        ggplot2::aes(x = p_x, label = p_text),
+        ggplot2::aes(x = p_x, y = method_display, label = p_text),
         hjust = 0,
         color = "black",
         size = 3.25,
@@ -312,9 +310,9 @@ plot_sensitivity <- function(
       ) +
       ggplot2::geom_text(
         data = header,
-        ggplot2::aes(x = estimate_x, y = header_y, label = "Coefficient (95% CI)"),
+        ggplot2::aes(x = estimate_x, y = method_display, label = paste0("Coefficient (", conf_text, "% CI)")),
         hjust = 0,
-        vjust = 0,
+        vjust = -1.8,
         fontface = "bold",
         color = "black",
         size = 3.35,
@@ -322,9 +320,9 @@ plot_sensitivity <- function(
       ) +
       ggplot2::geom_text(
         data = header,
-        ggplot2::aes(x = p_x, y = header_y, label = "P value"),
+        ggplot2::aes(x = p_x, y = method_display, label = "P value"),
         hjust = 0,
-        vjust = 0,
+        vjust = -1.8,
         fontface = "bold",
         color = "black",
         size = 3.35,
