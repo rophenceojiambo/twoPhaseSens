@@ -13,7 +13,7 @@ The planned first release compares six approaches for a linear-regression exposu
 
 ## Development status
 
-Current version: `0.0.0.9000`. This scaffold has not yet been validated as an installable package. The next milestone is numerical reproduction of the validated manuscript implementation and MIDUS application.
+Current development version: `0.0.0.9000`. The six analytic methods have been generalized into the package interface and numerically checked against the validated manuscript implementation for both MIDUS outcomes. Automated tests and R CMD check are passing on the development repository. The package remains under active development and has not yet been released to CRAN.
 
 ## Planned interface
 
@@ -30,6 +30,38 @@ fit <- twophase_sensitivity(
 
 tbl_sensitivity(fit)
 diagnostics(fit)
+plot_sensitivity(fit)
 ```
 
 See `README_STEP3.md` for development notes and validation requirements.
+
+
+## Plot display and export
+
+`plot_sensitivity()` returns a publication-style `ggplot` object. Annotated
+plots can look compressed in a small RStudio Plots pane, especially with two
+outcomes. Use **Zoom**, enlarge the pane, or set `annotate = FALSE` for a
+compact interactive preview.
+
+For exported output, specify the graphics size explicitly. As practical
+starting points, use approximately 9.5 x 6 inches for one annotated outcome and
+13 x 6 inches for two annotated outcomes.
+
+```r
+p <- plot_sensitivity(
+  fit,
+  estimate_label = "Adjusted beta"
+)
+
+ggplot2::ggsave(
+  "sensitivity_plot.png",
+  p,
+  width = 9.5,
+  height = 6,
+  dpi = 320,
+  bg = "white"
+)
+```
+
+See the Getting Started vignette for single- and multiple-outcome examples,
+fixed versus free x-axis scales, custom labels, and export guidance.
