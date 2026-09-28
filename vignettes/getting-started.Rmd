@@ -405,8 +405,61 @@ plot_sensitivity(
 The default reference line is 0. It can be changed or removed with
 `reference_line`. The right-side annotation columns can be removed with
 `annotate = FALSE`, and their decimal precision can be controlled with
-`estimate_digits` and `p_digits`. Because the function returns a `ggplot`
-object, additional `ggplot2` layers can be added by the user.
+`estimate_digits` and `p_digits`. The estimate-column label can be changed
+with `estimate_label`; for example, a manuscript reporting adjusted regression
+coefficients can use `estimate_label = "Adjusted beta"`. An optional overall
+plot title can be supplied with `title`.
+
+Because the annotated figure contains a forest region, numeric result columns,
+outcome strips, and a legend, a small RStudio Plots pane can compress the
+display. This does not change the plotted estimates. For interactive viewing,
+use RStudio's **Zoom** control, enlarge the Plots pane, or use
+`annotate = FALSE` for a compact preview.
+
+For manuscript or presentation output, save the plot at an explicit size.
+Single-outcome annotated figures generally work well at about 9--10 inches
+wide, while two-outcome figures benefit from a wider device.
+
+```{r save-forest-examples, eval=FALSE}
+p_one <- plot_sensitivity(
+  fit_one,
+  outcome_labels = c(outcome1 = "Primary outcome"),
+  estimate_label = "Adjusted beta"
+)
+
+ggplot2::ggsave(
+  "sensitivity_single_outcome.png",
+  p_one,
+  width = 9.5,
+  height = 6,
+  dpi = 320,
+  bg = "white"
+)
+
+p_two <- plot_sensitivity(
+  fit_two,
+  outcome_labels = c(
+    outcome1 = "Outcome 1",
+    outcome2 = "Outcome 2"
+  ),
+  estimate_label = "Adjusted beta",
+  facet_scales = "fixed"
+)
+
+ggplot2::ggsave(
+  "sensitivity_two_outcomes.png",
+  p_two,
+  width = 13,
+  height = 6,
+  dpi = 320,
+  bg = "white"
+)
+```
+
+These dimensions are practical starting points rather than required settings;
+users can adjust them for journal, slide, or document specifications. Because
+the function returns a `ggplot` object, additional `ggplot2` layers can also
+be added by the user.
 
 # Relabel methods and outcomes
 
