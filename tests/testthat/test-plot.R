@@ -79,3 +79,69 @@ test_that("forest plot validates requested filters", {
   expect_error(plot_sensitivity(fit, outcome = "missing"), "Unknown outcome")
   expect_error(plot_sensitivity(fit, method = "ipw"), "were not run")
 })
+
+
+test_that("publication forest plot uses manuscript method aesthetics", {
+  dat <- .make_synthetic_twophase_data(n = 400L, seed = 205L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca", "ipw"),
+    seed = 1205L
+  )
+
+  p <- plot_sensitivity(fit)
+
+  expect_s3_class(p, "ggplot")
+  expect_equal(
+    unname(p$scales$get_scales("colour")$palette(3L)),
+    unname(.twophasesens_method_colors[c("Naive", "CCA", "IPW")])
+  )
+  expect_equal(
+    unname(p$scales$get_scales("shape")$palette(3L)),
+    unname(.twophasesens_method_shapes[c("Naive", "CCA", "IPW")])
+  )
+  expect_true(any(vapply(p$layers, function(z) inherits(z$geom, "GeomText"), logical(1))))
+})
+
+test_that("publication forest plot annotations can be disabled", {
+  dat <- .make_synthetic_twophase_data(n = 350L, seed = 206L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca")
+  )
+
+  p <- plot_sensitivity(fit, annotate = FALSE)
+
+  expect_s3_class(p, "ggplot")
+  expect_false(any(vapply(p$layers, function(z) inherits(z$geom, "GeomText"), logical(1))))
+})
+
+test_that("publication forest plot validates annotation formatting arguments", {
+  dat <- .make_synthetic_twophase_data(n = 300L, seed = 207L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca")
+  )
+
+  expect_error(plot_sensitivity(fit, annotate = NA), "must be TRUE or FALSE")
+  expect_error(plot_sensitivity(fit, estimate_digits = -1), "non-negative integer")
+  expect_error(plot_sensitivity(fit, p_digits = 1.5), "non-negative integer")
+})
