@@ -18,8 +18,12 @@
 #' @param facet_scales Facet x-axis scaling for multiple outcomes:
 #'   `"free_x"` (default) or `"fixed"`.
 #' @param x_label Optional x-axis label. If `NULL`, a label is generated from
-#'   the confidence level stored in the analysis object.
-#' @param title Optional plot title.
+#'   `estimate_label` and the confidence level stored in the analysis object.
+#' @param estimate_label Label used for the numeric estimate column. The default
+#'   is `"Coefficient"`. For a manuscript that reports adjusted betas, for
+#'   example, use `estimate_label = "Adjusted beta"`.
+#' @param title Optional overall plot title. Outcome labels are shown in facet
+#'   strips, including when a single outcome is plotted.
 #' @param annotate Logical; if `TRUE` (default), add manuscript-style
 #'   right-side columns for the coefficient with confidence interval and p
 #'   value.
@@ -39,6 +43,7 @@ plot_sensitivity <- function(
   reference_line = 0,
   facet_scales = c("free_x", "fixed"),
   x_label = NULL,
+  estimate_label = "Coefficient",
   title = NULL,
   annotate = TRUE,
   estimate_digits = 3L,
@@ -113,6 +118,15 @@ plot_sensitivity <- function(
     stop("`x_label` must be NULL or one non-missing character string.", call. = FALSE)
   }
 
+  if (
+    !is.character(estimate_label) ||
+      length(estimate_label) != 1L ||
+      is.na(estimate_label) ||
+      !nzchar(estimate_label)
+  ) {
+    stop("`estimate_label` must be one non-empty character string.", call. = FALSE)
+  }
+
   if (!is.null(title) && (
     !is.character(title) ||
       length(title) != 1L ||
@@ -170,7 +184,7 @@ plot_sensitivity <- function(
   }
 
   if (is.null(x_label)) {
-    x_label <- paste0("Coefficient (", conf_text, "% CI)")
+    x_label <- paste0(estimate_label, " (", conf_text, "% CI)")
   }
 
   d$estimate_text <- sprintf(
@@ -359,8 +373,8 @@ plot_sensitivity <- function(
         graph_min = graph_min - 0.05 * graph_span,
         graph_max = graph_max + 0.05 * graph_span,
         estimate_x = graph_max + 0.22 * graph_span,
-        p_x = graph_max + 1.42 * graph_span,
-        panel_max = graph_max + 1.72 * graph_span
+        p_x = graph_max + 0.98 * graph_span,
+        panel_max = graph_max + 1.20 * graph_span
       )
     })
 
@@ -457,7 +471,7 @@ plot_sensitivity <- function(
         ggplot2::aes(
           x = .data$estimate_x,
           y = .data$method_display,
-          label = paste0("Coefficient (", conf_text, "% CI)")
+          label = paste0(estimate_label, " (", conf_text, "% CI)")
         ),
         hjust = 0,
         vjust = -1.55,
@@ -489,12 +503,10 @@ plot_sensitivity <- function(
       labels = function(z) format(z, trim = TRUE, scientific = FALSE)
     )
 
-  if (length(outcomes) > 1L) {
-    p <- p + ggplot2::facet_wrap(
-      ~ outcome_display,
-      scales = facet_scales
-    )
-  }
+  p <- p + ggplot2::facet_wrap(
+    ~ outcome_display,
+    scales = facet_scales
+  )
 
   p
 }

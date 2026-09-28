@@ -14,6 +14,7 @@ plot_sensitivity(
   reference_line = 0,
   facet_scales = c("free_x", "fixed"),
   x_label = NULL,
+  estimate_label = "Coefficient",
   title = NULL,
   annotate = TRUE,
   estimate_digits = 3L,
@@ -42,9 +43,14 @@ Use \code{NULL} to omit the line. The default is 0.}
 \code{"free_x"} (default) or \code{"fixed"}.}
 
 \item{x_label}{Optional x-axis label. If \code{NULL}, a label is generated from
-the confidence level stored in the analysis object.}
+\code{estimate_label} and the confidence level stored in the analysis object.}
 
-\item{title}{Optional plot title.}
+\item{estimate_label}{Label used for the numeric estimate column. The default
+is \code{"Coefficient"}. For a manuscript that reports adjusted betas, for
+example, use \code{estimate_label = "Adjusted beta"}.}
+
+\item{title}{Optional overall plot title. Outcome labels are shown in facet
+strips, including when a single outcome is plotted.}
 
 \item{annotate}{Logical; if \code{TRUE} (default), add manuscript-style
 right-side columns for the coefficient with confidence interval and p
