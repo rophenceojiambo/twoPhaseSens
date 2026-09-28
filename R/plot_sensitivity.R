@@ -357,7 +357,7 @@ plot_sensitivity <- function(
   )
 
   if (isTRUE(annotate)) {
-    panel_layout <- lapply(split(d, d$outcome_display), function(z) {
+    make_panel_layout <- function(z, multi_panel = FALSE) {
       graph_min <- min(c(z$conf_low, reference_line), na.rm = TRUE)
       graph_max <- max(z$conf_high, na.rm = TRUE)
       graph_span <- graph_max - graph_min
@@ -369,14 +369,41 @@ plot_sensitivity <- function(
         graph_span <- 1
       }
 
+      if (multi_panel) {
+        estimate_offset <- 0.22
+        p_offset <- 1.20
+        panel_offset <- 1.46
+      } else {
+        estimate_offset <- 0.22
+        p_offset <- 0.98
+        panel_offset <- 1.20
+      }
+
       c(
         graph_min = graph_min - 0.05 * graph_span,
         graph_max = graph_max + 0.05 * graph_span,
-        estimate_x = graph_max + 0.22 * graph_span,
-        p_x = graph_max + 0.98 * graph_span,
-        panel_max = graph_max + 1.20 * graph_span
+        estimate_x = graph_max + estimate_offset * graph_span,
+        p_x = graph_max + p_offset * graph_span,
+        panel_max = graph_max + panel_offset * graph_span
       )
-    })
+    }
+
+    if (facet_scales == "fixed" && length(outcomes) > 1L) {
+      common_layout <- make_panel_layout(d, multi_panel = TRUE)
+      panel_layout <- stats::setNames(
+        rep(list(common_layout), length(outcome_display)),
+        unname(outcome_display)
+      )
+    } else {
+      panel_layout <- lapply(
+        split(d, d$outcome_display),
+        make_panel_layout,
+        multi_panel = length(outcomes) > 1L
+      )
+    }
+
+    annotation_size <- if (length(outcomes) > 1L) 2.80 else 3.00
+    header_size <- if (length(outcomes) > 1L) 2.85 else 3.05
 
     d$estimate_x <- vapply(
       as.character(d$outcome_display),
@@ -451,7 +478,7 @@ plot_sensitivity <- function(
         ),
         hjust = 0,
         color = "black",
-        size = 3.00,
+        size = annotation_size,
         inherit.aes = FALSE
       ) +
       ggplot2::geom_text(
@@ -463,7 +490,7 @@ plot_sensitivity <- function(
         ),
         hjust = 0,
         color = "black",
-        size = 3.00,
+        size = annotation_size,
         inherit.aes = FALSE
       ) +
       ggplot2::geom_text(
@@ -477,7 +504,7 @@ plot_sensitivity <- function(
         vjust = -1.55,
         fontface = "bold",
         color = "black",
-        size = 3.05,
+        size = header_size,
         inherit.aes = FALSE
       ) +
       ggplot2::geom_text(
@@ -491,7 +518,7 @@ plot_sensitivity <- function(
         vjust = -1.55,
         fontface = "bold",
         color = "black",
-        size = 3.05,
+        size = header_size,
         inherit.aes = FALSE
       )
   }
@@ -505,7 +532,8 @@ plot_sensitivity <- function(
 
   p <- p + ggplot2::facet_wrap(
     ~ outcome_display,
-    scales = facet_scales
+    scales = facet_scales,
+    nrow = if (length(outcomes) <= 2L) 1L else NULL
   )
 
   p
