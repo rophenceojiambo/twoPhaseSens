@@ -188,10 +188,10 @@ plot_sensitivity <- function(
   p <- ggplot2::ggplot(
     d,
     ggplot2::aes(
-      x = estimate,
-      y = method_display,
-      color = method,
-      shape = method
+      x = .data$estimate,
+      y = .data$method_display,
+      color = .data$method,
+      shape = .data$method
     )
   )
 
@@ -207,11 +207,11 @@ plot_sensitivity <- function(
   p <- p +
     ggplot2::geom_segment(
       ggplot2::aes(
-        x = conf_low,
-        xend = conf_high,
-        y = method_display,
-        yend = method_display,
-        linetype = method
+        x = .data$conf_low,
+        xend = .data$conf_high,
+        y = .data$method_display,
+        yend = .data$method_display,
+        linetype = .data$method
       ),
       linewidth = 0.8,
       show.legend = FALSE
@@ -294,7 +294,7 @@ plot_sensitivity <- function(
     p <- p +
       ggplot2::geom_text(
         data = d,
-        ggplot2::aes(x = estimate_x, y = method_display, label = estimate_text),
+        ggplot2::aes(x = .data$estimate_x, y = .data$method_display, label = .data$estimate_text),
         hjust = 0,
         color = "black",
         size = 3.25,
@@ -302,7 +302,7 @@ plot_sensitivity <- function(
       ) +
       ggplot2::geom_text(
         data = d,
-        ggplot2::aes(x = p_x, y = method_display, label = p_text),
+        ggplot2::aes(x = .data$p_x, y = .data$method_display, label = .data$p_text),
         hjust = 0,
         color = "black",
         size = 3.25,
@@ -310,7 +310,7 @@ plot_sensitivity <- function(
       ) +
       ggplot2::geom_text(
         data = header,
-        ggplot2::aes(x = estimate_x, y = method_display, label = paste0("Coefficient (", conf_text, "% CI)")),
+        ggplot2::aes(x = .data$estimate_x, y = .data$method_display, label = paste0("Coefficient (", conf_text, "% CI)")),
         hjust = 0,
         vjust = -1.8,
         fontface = "bold",
@@ -320,7 +320,7 @@ plot_sensitivity <- function(
       ) +
       ggplot2::geom_text(
         data = header,
-        ggplot2::aes(x = p_x, y = method_display, label = "P value"),
+        ggplot2::aes(x = .data$p_x, y = .data$method_display, label = "P value"),
         hjust = 0,
         vjust = -1.8,
         fontface = "bold",
