@@ -1,0 +1,43 @@
+\name{twophase_sensitivity}
+\alias{twophase_sensitivity}
+\title{Compare methods for Phase-2 covariates missing by design}
+\usage{
+twophase_sensitivity(
+  data,
+  outcome,
+  exposure,
+  covariates = character(),
+  phase2_covariates,
+  phase2,
+  methods = c("naive", "cca", "fcs_mi", "jm_mi", "ipw", "aipw"),
+  n_imputations = .twophasesens_defaults$n_imputations,
+  mice_maxit = .twophasesens_defaults$mice_maxit,
+  jomo_nburn = .twophasesens_defaults$jomo_nburn,
+  jomo_nbetween = .twophasesens_defaults$jomo_nbetween,
+  seed = NULL,
+  conf_level = .twophasesens_defaults$conf_level
+)
+}
+\arguments{
+  \item{data}{A data frame.}
+  \item{outcome}{Character vector naming one or more continuous outcomes.}
+  \item{exposure}{Character scalar naming the numeric primary exposure.}
+  \item{covariates}{Character vector naming fully observed Phase-1 covariates.}
+  \item{phase2_covariates}{Character vector naming continuous Phase-2 covariates.}
+  \item{phase2}{Character scalar naming the 0/1 Phase-2 indicator.}
+  \item{methods}{Methods to run. Defaults to all six implemented approaches.}
+  \item{n_imputations}{Number of imputations for FCS-MI and JM-MI.}
+  \item{mice_maxit}{Maximum FCS iterations.}
+  \item{jomo_nburn}{JM-MI burn-in iterations.}
+  \item{jomo_nbetween}{JM-MI iterations between saved imputations.}
+  \item{seed}{Optional seed. When supplied, the previous global RNG state is restored.}
+  \item{conf_level}{Confidence level for intervals.}
+}
+\value{
+An object of class \code{twophase_sensitivity}.
+}
+\description{
+Runs a prespecified set of analytic approaches for a linear-regression exposure
+coefficient when a block of continuous adjustment covariates is observed only
+in a Phase-2 subsample.
+}
