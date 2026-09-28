@@ -1,0 +1,8 @@
+# Generated manually for the Step 3 development scaffold.
+# Regenerate with roxygen2 before release.
+export(twophase_sensitivity)
+export(tbl_sensitivity)
+export(diagnostics)
+S3method(print,twophase_sensitivity)
+S3method(summary,twophase_sensitivity)
+S3method(diagnostics,twophase_sensitivity)
