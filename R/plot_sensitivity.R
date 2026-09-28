@@ -350,6 +350,7 @@ plot_sensitivity <- function(
 
 #' Plot a twophase_sensitivity object
 #'
+#' @rdname plot_sensitivity
 #' @param x A `twophase_sensitivity` object.
 #' @param ... Arguments passed to [plot_sensitivity()].
 #'
