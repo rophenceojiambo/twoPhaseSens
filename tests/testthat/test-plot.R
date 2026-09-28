@@ -198,9 +198,9 @@ test_that("annotated publication plot reserves separate numeric columns", {
   )
 
   expect_true(length(text_layers) >= 4L)
-  expect_true(any(vapply(
+  expect_true(all(vapply(
     text_layers,
-    function(z) identical(z$aes_params$family, "sans"),
+    function(z) is.null(z$aes_params$family),
     logical(1)
   )))
 })
