@@ -30,7 +30,7 @@ twophase_sensitivity(
   \item{mice_maxit}{Maximum FCS iterations.}
   \item{jomo_nburn}{JM-MI burn-in iterations.}
   \item{jomo_nbetween}{JM-MI iterations between saved imputations.}
-  \item{seed}{Optional seed. When supplied, the previous global RNG state is restored.}
+  \item{seed}{Optional random-number seed. Supply either one non-negative integer, which is expanded sequentially across outcomes, or one integer per outcome. A named seed vector may be supplied using the outcome names. The previous global RNG state is restored after each outcome analysis.}
   \item{conf_level}{Confidence level for intervals.}
 }
 \value{
