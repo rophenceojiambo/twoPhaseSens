@@ -147,7 +147,7 @@ tbl_sensitivity <- function(
 
     tbl <- gtsummary::modify_table_styling(
       tbl,
-      columns = est_pos,
+      columns = tidyselect::all_of(est_name),
       label = "**Coefficient (95% CI)**",
       spanning_header = spanning,
       align = "center"
@@ -158,7 +158,7 @@ tbl_sensitivity <- function(
       se_pos <- match(se_name, names(body))
       tbl <- gtsummary::modify_table_styling(
         tbl,
-        columns = se_pos,
+        columns = tidyselect::all_of(se_name),
         label = "**SE**",
         spanning_header = spanning,
         align = "center"
@@ -167,7 +167,7 @@ tbl_sensitivity <- function(
 
     tbl <- gtsummary::modify_table_styling(
       tbl,
-      columns = p_pos,
+      columns = tidyselect::all_of(p_name),
       label = "**P value**",
       spanning_header = spanning,
       align = "center"
