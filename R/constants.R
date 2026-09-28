@@ -23,11 +23,11 @@
 )
 
 .twophasesens_method_shapes <- c(
-  "Naive" = 21L,
-  "CCA" = 24L,
-  "FCS-MI" = 22L,
-  "JM-MI" = 23L,
-  "IPW" = 25L,
+  "Naive" = 1L,
+  "CCA" = 2L,
+  "FCS-MI" = 0L,
+  "JM-MI" = 5L,
+  "IPW" = 6L,
   "AIPW" = 10L
 )
 
