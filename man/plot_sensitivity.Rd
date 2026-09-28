@@ -29,31 +29,41 @@ plot_sensitivity(
 
 \item{method}{Optional character vector selecting one or more methods.}
 
-\item{outcome_labels}{Optional character vector used to relabel outcomes. Supply either a named vector whose names are the outcome variable names or an unnamed vector in the same order as the selected outcomes.}
+\item{outcome_labels}{Optional character vector used to relabel outcomes.
+Supply either a named vector whose names are the outcome variable names or
+an unnamed vector in the same order as the selected outcomes.}
 
 \item{method_labels}{Optional named character vector used to relabel methods.}
 
-\item{reference_line}{Numeric scalar giving the vertical reference line. Use \code{NULL} to omit the line. The default is 0.}
+\item{reference_line}{Numeric scalar giving the vertical reference line.
+Use \code{NULL} to omit the line. The default is 0.}
 
-\item{facet_scales}{Facet x-axis scaling for multiple outcomes: \code{"free_x"} (default) or \code{"fixed"}.}
+\item{facet_scales}{Facet x-axis scaling for multiple outcomes:
+\code{"free_x"} (default) or \code{"fixed"}.}
 
-\item{x_label}{Optional x-axis label. If \code{NULL}, a label is generated from the confidence level stored in the analysis object.}
+\item{x_label}{Optional x-axis label. If \code{NULL}, a label is generated from
+the confidence level stored in the analysis object.}
 
 \item{title}{Optional plot title.}
 
-\item{annotate}{Logical; if \code{TRUE} (default), add manuscript-style right-side columns for the coefficient with confidence interval and p value.}
+\item{annotate}{Logical; if \code{TRUE} (default), add manuscript-style
+right-side columns for the coefficient with confidence interval and p
+value.}
 
-\item{estimate_digits}{Number of digits used in the coefficient and confidence-interval annotation.}
+\item{estimate_digits}{Number of digits used in the coefficient and
+confidence-interval annotation.}
 
 \item{p_digits}{Number of digits used in the p-value annotation.}
 
-\item{...}{Arguments passed to \code{plot_sensitivity()}.}
+\item{...}{Arguments passed to \code{\link[=plot_sensitivity]{plot_sensitivity()}}.}
 }
 \value{
 A \code{ggplot} object.
+
+A \code{ggplot} object.
 }
 \description{
-Creates a publication-style forest plot from a \code{twophase_sensitivity}
+Creates a publication-style forest plot from a \code{\link[=twophase_sensitivity]{twophase_sensitivity()}}
 object. Each method is shown with a method-specific color and symbol,
 horizontal confidence interval, and optional right-side text columns for the
 formatted coefficient/CI and p value. With multiple outcomes, outcomes are
