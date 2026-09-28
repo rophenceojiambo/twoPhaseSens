@@ -175,3 +175,32 @@ test_that("publication forest plot keeps solid confidence intervals and one-row 
   )
   expect_equal(p$guides$guides$colour$params$nrow, 1L)
 })
+
+
+test_that("annotated publication plot reserves separate numeric columns", {
+  dat <- .make_synthetic_twophase_data(n = 350L, seed = 209L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca", "ipw"),
+    seed = 1209L
+  )
+
+  p <- plot_sensitivity(fit)
+  text_layers <- Filter(
+    function(z) inherits(z$geom, "GeomText"),
+    p$layers
+  )
+
+  expect_true(length(text_layers) >= 4L)
+  expect_true(any(vapply(
+    text_layers,
+    function(z) identical(z$aes_params$family, "sans"),
+    logical(1)
+  )))
+})
