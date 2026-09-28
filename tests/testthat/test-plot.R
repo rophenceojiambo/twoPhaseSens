@@ -246,3 +246,37 @@ test_that("forest plot validates estimate_label", {
 
   expect_error(plot_sensitivity(fit, estimate_label = ""), "non-empty character")
 })
+
+
+test_that("multi-outcome fixed-scale forest plot uses shared annotation layout", {
+  dat <- .make_synthetic_twophase_data(n = 360L, seed = 212L)
+  dat$y2 <- dat$y + rnorm(nrow(dat), sd = 0.3)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = c("y", "y2"),
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca", "ipw"),
+    seed = c(y = 1212L, y2 = 1213L)
+  )
+
+  p <- plot_sensitivity(
+    fit,
+    outcome_labels = c(y = "Outcome 1", y2 = "Outcome 2"),
+    estimate_label = "Adjusted beta",
+    facet_scales = "fixed"
+  )
+
+  expect_s3_class(p, "ggplot")
+  expect_true(inherits(p$facet, "FacetWrap"))
+  expect_equal(p$facet$params$nrow, 1L)
+
+  text_layers <- Filter(
+    function(z) inherits(z$geom, "GeomText"),
+    p$layers
+  )
+  expect_true(length(text_layers) >= 4L)
+})
