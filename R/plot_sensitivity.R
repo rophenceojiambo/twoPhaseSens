@@ -183,24 +183,27 @@ plot_sensitivity <- function(
 
   method_colors <- .twophasesens_method_colors[methods]
   method_shapes <- .twophasesens_method_shapes[methods]
-  method_linetypes <- .twophasesens_method_linetypes[methods]
+
+  figure_font <- if (.Platform$OS.type == "windows") "Arial" else "sans"
+
+  base_data <- d[d$method != "AIPW", , drop = FALSE]
+  aipw_data <- d[d$method == "AIPW", , drop = FALSE]
 
   p <- ggplot2::ggplot(
     d,
     ggplot2::aes(
       x = .data$estimate,
       y = .data$method_display,
-      color = .data$method,
-      shape = .data$method
+      color = .data$method
     )
   )
 
   if (!is.null(reference_line)) {
     p <- p + ggplot2::geom_vline(
       xintercept = reference_line,
-      linetype = 3,
-      linewidth = 0.55,
-      color = "grey45"
+      linetype = "dotted",
+      linewidth = 0.65,
+      color = "grey20"
     )
   }
 
@@ -210,126 +213,278 @@ plot_sensitivity <- function(
         x = .data$conf_low,
         xend = .data$conf_high,
         y = .data$method_display,
-        yend = .data$method_display,
-        linetype = .data$method
+        yend = .data$method_display
       ),
-      linewidth = 0.8,
-      show.legend = FALSE
+      linewidth = 0.85
     ) +
     ggplot2::geom_point(
-      size = 3.0,
-      stroke = 0.95,
-      fill = "white"
-    ) +
+      data = base_data,
+      ggplot2::aes(
+        shape = .data$method,
+        fill = .data$method
+      ),
+      size = 3.4,
+      stroke = 1.15
+    )
+
+  if (nrow(aipw_data) > 0L) {
+    p <- p +
+      ggplot2::geom_point(
+        data = aipw_data,
+        shape = 21,
+        color = "white",
+        fill = "white",
+        size = 4.5,
+        stroke = 0,
+        show.legend = FALSE
+      ) +
+      ggplot2::geom_point(
+        data = aipw_data,
+        ggplot2::aes(shape = .data$method),
+        size = 3.6,
+        stroke = 1.20,
+        show.legend = TRUE
+      )
+  }
+
+  p <- p +
     ggplot2::scale_color_manual(
       values = method_colors,
       breaks = methods,
-      labels = unname(method_display)
+      limits = methods,
+      labels = unname(method_display),
+      drop = FALSE
+    ) +
+    ggplot2::scale_fill_manual(
+      values = stats::setNames(rep("white", length(methods)), methods),
+      breaks = methods,
+      limits = methods,
+      drop = FALSE
     ) +
     ggplot2::scale_shape_manual(
       values = method_shapes,
       breaks = methods,
-      labels = unname(method_display)
+      limits = methods,
+      labels = unname(method_display),
+      drop = FALSE
     ) +
-    ggplot2::scale_linetype_manual(values = method_linetypes) +
+    ggplot2::guides(
+      color = ggplot2::guide_legend(
+        nrow = 1,
+        byrow = TRUE,
+        label.position = "right",
+        override.aes = list(
+          shape = unname(method_shapes),
+          fill = rep("white", length(methods)),
+          linewidth = rep(1.0, length(methods)),
+          size = rep(3.8, length(methods))
+        )
+      ),
+      fill = "none",
+      shape = "none"
+    ) +
     ggplot2::labs(
       x = x_label,
       y = NULL,
       title = title,
-      color = NULL,
-      shape = NULL
+      color = NULL
     ) +
-    ggplot2::theme_classic(base_size = 11) +
+    ggplot2::theme_bw(
+      base_size = 12,
+      base_family = figure_font
+    ) +
     ggplot2::theme(
-      axis.text.y = ggplot2::element_text(color = "black"),
-      axis.text.x = ggplot2::element_text(color = "black"),
-      axis.title.x = ggplot2::element_text(color = "black"),
-      plot.title = ggplot2::element_text(face = "bold", hjust = 0),
-      strip.background = ggplot2::element_blank(),
-      strip.text = ggplot2::element_text(face = "bold", color = "black"),
+      text = ggplot2::element_text(
+        family = figure_font,
+        colour = "black"
+      ),
+      plot.title = ggplot2::element_text(
+        face = "bold",
+        hjust = 0,
+        colour = "black"
+      ),
+      strip.background = ggplot2::element_rect(
+        fill = "grey94",
+        color = "grey35",
+        linewidth = 0.55
+      ),
+      strip.text = ggplot2::element_text(
+        size = 10.4,
+        colour = "black"
+      ),
+      panel.border = ggplot2::element_rect(
+        color = "grey35",
+        linewidth = 0.55
+      ),
+      panel.grid.major = ggplot2::element_blank(),
+      panel.grid.minor = ggplot2::element_blank(),
+      axis.title = ggplot2::element_text(
+        size = 12.2,
+        colour = "black"
+      ),
+      axis.text = ggplot2::element_text(
+        size = 10.5,
+        colour = "black"
+      ),
       legend.position = "bottom",
       legend.direction = "horizontal",
       legend.box = "horizontal",
-      legend.text = ggplot2::element_text(color = "black"),
-      plot.margin = ggplot2::margin(5.5, 12, 5.5, 5.5)
+      legend.title = ggplot2::element_blank(),
+      legend.text = ggplot2::element_text(
+        size = 10.2,
+        colour = "black"
+      ),
+      legend.key.width = grid::unit(1.45, "lines"),
+      legend.spacing.x = grid::unit(0.20, "cm"),
+      legend.margin = ggplot2::margin(t = 2, b = 0),
+      plot.margin = ggplot2::margin(7, 8, 4, 8)
     )
 
+
   if (isTRUE(annotate)) {
-    ranges <- lapply(split(d, d$outcome_display), function(z) {
-      vals <- c(z$conf_low, z$conf_high)
-      span <- diff(range(vals, finite = TRUE))
-      if (!is.finite(span) || span <= 0) {
-        span <- max(abs(vals), na.rm = TRUE)
+    panel_layout <- lapply(split(d, d$outcome_display), function(z) {
+      graph_min <- min(c(z$conf_low, reference_line), na.rm = TRUE)
+      graph_max <- max(z$conf_high, na.rm = TRUE)
+      graph_span <- graph_max - graph_min
+
+      if (!is.finite(graph_span) || graph_span <= 0) {
+        graph_span <- max(abs(c(graph_min, graph_max)), na.rm = TRUE)
       }
-      if (!is.finite(span) || span <= 0) {
-        span <- 1
+      if (!is.finite(graph_span) || graph_span <= 0) {
+        graph_span <- 1
       }
 
-      xmax <- max(vals, finite = TRUE)
       c(
-        estimate_x = xmax + 0.22 * span,
-        p_x = xmax + 0.86 * span
+        graph_min = graph_min - 0.05 * graph_span,
+        graph_max = graph_max + 0.05 * graph_span,
+        estimate_x = graph_max + 0.42 * graph_span,
+        p_x = graph_max + 1.02 * graph_span,
+        panel_max = graph_max + 1.28 * graph_span
       )
     })
 
     d$estimate_x <- vapply(
       as.character(d$outcome_display),
-      function(z) ranges[[z]][["estimate_x"]],
+      function(z) panel_layout[[z]][["estimate_x"]],
       numeric(1)
     )
     d$p_x <- vapply(
       as.character(d$outcome_display),
-      function(z) ranges[[z]][["p_x"]],
+      function(z) panel_layout[[z]][["p_x"]],
+      numeric(1)
+    )
+    d$panel_max <- vapply(
+      as.character(d$outcome_display),
+      function(z) panel_layout[[z]][["panel_max"]],
       numeric(1)
     )
 
+    blank_data <- data.frame(
+      outcome_display = factor(
+        unname(outcome_display),
+        levels = unname(outcome_display)
+      ),
+      method_display = factor(
+        rep(unname(method_display)[length(method_display)], length(outcomes)),
+        levels = levels(d$method_display)
+      ),
+      x = vapply(
+        unname(outcome_display),
+        function(z) panel_layout[[z]][["panel_max"]],
+        numeric(1)
+      ),
+      stringsAsFactors = FALSE
+    )
+
     header <- data.frame(
-      outcome_display = factor(unname(outcome_display), levels = unname(outcome_display)),
-      method_display = factor(rep(unname(method_display)[1L], length(outcomes)), levels = levels(d$method_display)),
-      estimate_x = vapply(unname(outcome_display), function(z) ranges[[z]][["estimate_x"]], numeric(1)),
-      p_x = vapply(unname(outcome_display), function(z) ranges[[z]][["p_x"]], numeric(1)),
+      outcome_display = factor(
+        unname(outcome_display),
+        levels = unname(outcome_display)
+      ),
+      method_display = factor(
+        rep(unname(method_display)[1L], length(outcomes)),
+        levels = levels(d$method_display)
+      ),
+      estimate_x = vapply(
+        unname(outcome_display),
+        function(z) panel_layout[[z]][["estimate_x"]],
+        numeric(1)
+      ),
+      p_x = vapply(
+        unname(outcome_display),
+        function(z) panel_layout[[z]][["p_x"]],
+        numeric(1)
+      ),
       stringsAsFactors = FALSE
     )
 
     p <- p +
-      ggplot2::geom_text(
-        data = d,
-        ggplot2::aes(x = .data$estimate_x, y = .data$method_display, label = .data$estimate_text),
-        hjust = 0,
-        color = "black",
-        size = 3.25,
+      ggplot2::geom_blank(
+        data = blank_data,
+        ggplot2::aes(
+          x = .data$x,
+          y = .data$method_display
+        ),
         inherit.aes = FALSE
       ) +
       ggplot2::geom_text(
         data = d,
-        ggplot2::aes(x = .data$p_x, y = .data$method_display, label = .data$p_text),
+        ggplot2::aes(
+          x = .data$estimate_x,
+          y = .data$method_display,
+          label = .data$estimate_text
+        ),
         hjust = 0,
         color = "black",
-        size = 3.25,
+        family = figure_font,
+        size = 3.00,
+        inherit.aes = FALSE
+      ) +
+      ggplot2::geom_text(
+        data = d,
+        ggplot2::aes(
+          x = .data$p_x,
+          y = .data$method_display,
+          label = .data$p_text
+        ),
+        hjust = 0,
+        color = "black",
+        family = figure_font,
+        size = 3.00,
         inherit.aes = FALSE
       ) +
       ggplot2::geom_text(
         data = header,
-        ggplot2::aes(x = .data$estimate_x, y = .data$method_display, label = paste0("Coefficient (", conf_text, "% CI)")),
+        ggplot2::aes(
+          x = .data$estimate_x,
+          y = .data$method_display,
+          label = paste0("Coefficient (", conf_text, "% CI)")
+        ),
         hjust = 0,
-        vjust = -1.8,
+        vjust = -1.55,
         fontface = "bold",
         color = "black",
-        size = 3.35,
+        family = figure_font,
+        size = 3.05,
         inherit.aes = FALSE
       ) +
       ggplot2::geom_text(
         data = header,
-        ggplot2::aes(x = .data$p_x, y = .data$method_display, label = "P value"),
+        ggplot2::aes(
+          x = .data$p_x,
+          y = .data$method_display,
+          label = "P value"
+        ),
         hjust = 0,
-        vjust = -1.8,
+        vjust = -1.55,
         fontface = "bold",
         color = "black",
-        size = 3.35,
+        family = figure_font,
+        size = 3.05,
         inherit.aes = FALSE
-      ) +
-      ggplot2::coord_cartesian(clip = "off")
+      )
   }
+
 
   if (length(outcomes) > 1L) {
     p <- p + ggplot2::facet_wrap(

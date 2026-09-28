@@ -145,3 +145,33 @@ test_that("publication forest plot validates annotation formatting arguments", {
   expect_error(plot_sensitivity(fit, estimate_digits = -1), "non-negative integer")
   expect_error(plot_sensitivity(fit, p_digits = 1.5), "non-negative integer")
 })
+
+
+test_that("publication forest plot keeps solid confidence intervals and one-row legend", {
+  dat <- .make_synthetic_twophase_data(n = 400L, seed = 208L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca", "fcs_mi", "jm_mi", "ipw", "aipw"),
+    n_imputations = 2L,
+    mice_maxit = 2L,
+    jomo_nburn = 20L,
+    jomo_nbetween = 20L,
+    seed = 1208L
+  )
+
+  p <- plot_sensitivity(fit)
+
+  expect_s3_class(p, "ggplot")
+  expect_null(p$scales$get_scales("linetype"))
+  expect_equal(
+    unname(p$scales$get_scales("shape")$palette(6L)),
+    unname(.twophasesens_method_shapes)
+  )
+  expect_equal(p$guides$guides$colour$params$nrow, 1L)
+})
