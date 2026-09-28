@@ -59,7 +59,5 @@
     ))
   }
 
-  ans <- do.call(rbind, out)
-  rownames(ans) <- NULL
-  ans
+  .rbind_fill(out)
 }
