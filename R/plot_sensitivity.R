@@ -162,14 +162,14 @@ plot_sensitivity <- function(
     levels = unname(outcome_display)
   )
 
-  if (is.null(x_label)) {
-    conf_pct <- 100 * x$settings$conf_level
-    conf_text <- if (abs(conf_pct - round(conf_pct)) < sqrt(.Machine$double.eps)) {
-      format(round(conf_pct), trim = TRUE, scientific = FALSE)
-    } else {
-      format(conf_pct, trim = TRUE, scientific = FALSE)
-    }
+  conf_pct <- 100 * x$settings$conf_level
+  conf_text <- if (abs(conf_pct - round(conf_pct)) < sqrt(.Machine$double.eps)) {
+    format(round(conf_pct), trim = TRUE, scientific = FALSE)
+  } else {
+    format(conf_pct, trim = TRUE, scientific = FALSE)
+  }
 
+  if (is.null(x_label)) {
     x_label <- paste0("Coefficient (", conf_text, "% CI)")
   }
 
@@ -268,7 +268,7 @@ plot_sensitivity <- function(
       xmax <- max(vals, finite = TRUE)
       c(
         estimate_x = xmax + 0.22 * span,
-        p_x = xmax + 0.86 * span,
+        p_x = xmax + 0.86 * span
       )
     })
 
