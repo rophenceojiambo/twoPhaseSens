@@ -13,6 +13,19 @@
   )
 }
 
+.rbind_fill <- function(x) {
+  if (length(x) == 0L) return(data.frame())
+  all_names <- unique(unlist(lapply(x, names), use.names = FALSE))
+  x2 <- lapply(x, function(d) {
+    missing <- setdiff(all_names, names(d))
+    for (nm in missing) d[[nm]] <- NA
+    d[, all_names, drop = FALSE]
+  })
+  out <- do.call(rbind, x2)
+  rownames(out) <- NULL
+  out
+}
+
 .with_preserved_seed <- function(seed, code) {
   if (is.null(seed)) return(force(code))
   if (length(seed) != 1L || is.na(seed) || !is.finite(seed)) {
