@@ -280,3 +280,28 @@ test_that("multi-outcome fixed-scale forest plot uses shared annotation layout",
   )
   expect_true(length(text_layers) >= 4L)
 })
+
+
+test_that("single-outcome forest plot keeps compact p-value spacing", {
+  dat <- .make_synthetic_twophase_data(n = 320L, seed = 213L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca", "ipw"),
+    seed = 1214L
+  )
+
+  p <- plot_sensitivity(
+    fit,
+    outcome_labels = c(y = "Primary outcome"),
+    estimate_label = "Adjusted beta"
+  )
+
+  expect_s3_class(p, "ggplot")
+  expect_true(inherits(p$facet, "FacetWrap"))
+})

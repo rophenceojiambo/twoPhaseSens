@@ -375,8 +375,8 @@ plot_sensitivity <- function(
         panel_offset <- 1.46
       } else {
         estimate_offset <- 0.22
-        p_offset <- 0.98
-        panel_offset <- 1.20
+        p_offset <- 0.72
+        panel_offset <- 0.95
       }
 
       c(
