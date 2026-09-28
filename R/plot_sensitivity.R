@@ -184,7 +184,7 @@ plot_sensitivity <- function(
   method_colors <- .twophasesens_method_colors[methods]
   method_shapes <- .twophasesens_method_shapes[methods]
 
-  figure_font <- if (.Platform$OS.type == "windows") "Arial" else "sans"
+  figure_font <- "sans"
 
   base_data <- d[d$method != "AIPW", , drop = FALSE]
   aipw_data <- d[d$method == "AIPW", , drop = FALSE]
@@ -337,9 +337,14 @@ plot_sensitivity <- function(
       legend.key.width = grid::unit(1.45, "lines"),
       legend.spacing.x = grid::unit(0.20, "cm"),
       legend.margin = ggplot2::margin(t = 2, b = 0),
-      plot.margin = ggplot2::margin(7, 8, 4, 8)
+      plot.margin = ggplot2::margin(7, 16, 4, 8)
     )
 
+
+  graph_breaks <- pretty(
+    range(c(d$conf_low, d$conf_high, reference_line), finite = TRUE),
+    n = 5
+  )
 
   if (isTRUE(annotate)) {
     panel_layout <- lapply(split(d, d$outcome_display), function(z) {
@@ -357,9 +362,9 @@ plot_sensitivity <- function(
       c(
         graph_min = graph_min - 0.05 * graph_span,
         graph_max = graph_max + 0.05 * graph_span,
-        estimate_x = graph_max + 0.42 * graph_span,
-        p_x = graph_max + 1.02 * graph_span,
-        panel_max = graph_max + 1.28 * graph_span
+        estimate_x = graph_max + 0.22 * graph_span,
+        p_x = graph_max + 1.42 * graph_span,
+        panel_max = graph_max + 1.72 * graph_span
       )
     })
 
@@ -485,6 +490,12 @@ plot_sensitivity <- function(
       )
   }
 
+
+  p <- p +
+    ggplot2::scale_x_continuous(
+      breaks = graph_breaks,
+      labels = function(z) format(z, trim = TRUE, scientific = FALSE)
+    )
 
   if (length(outcomes) > 1L) {
     p <- p + ggplot2::facet_wrap(
