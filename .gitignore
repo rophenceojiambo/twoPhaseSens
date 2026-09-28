@@ -3,3 +3,7 @@
 .RData
 .Ruserdata
 .DS_Store
+
+# Restricted/local validation inputs and outputs
+dev/validation/output/
+dev/validation/private/
