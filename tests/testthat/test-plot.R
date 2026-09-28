@@ -204,3 +204,45 @@ test_that("annotated publication plot reserves separate numeric columns", {
     logical(1)
   )))
 })
+
+
+test_that("forest plot supports manuscript estimate labels and single-outcome strip", {
+  dat <- .make_synthetic_twophase_data(n = 320L, seed = 210L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca", "ipw"),
+    seed = 1210L
+  )
+
+  p <- plot_sensitivity(
+    fit,
+    outcome_labels = c(y = "Primary outcome"),
+    estimate_label = "Adjusted beta"
+  )
+
+  expect_s3_class(p, "ggplot")
+  expect_equal(p$labels$x, "Adjusted beta (95% CI)")
+  expect_true(inherits(p$facet, "FacetWrap"))
+})
+
+test_that("forest plot validates estimate_label", {
+  dat <- .make_synthetic_twophase_data(n = 300L, seed = 211L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca")
+  )
+
+  expect_error(plot_sensitivity(fit, estimate_label = ""), "non-empty character")
+})
