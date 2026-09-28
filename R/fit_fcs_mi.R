@@ -13,9 +13,19 @@
     stats::lm(.full_formula(phase1_names, marker_names), data=completed)
   })
   pooled <- .pool_A_from_lm_list(fits, nrow(dat), conf_level)
-  data.frame(method="FCS-MI", estimate=pooled["estimate"], se=pooled["se"],
-    df=pooled["df"], p_value=pooled["p_value"], conf_low=pooled["conf_low"],
-    conf_high=pooled["conf_high"], status="ok",
-    message=if (!is.null(imp$loggedEvents)) paste("mice logged events:", nrow(imp$loggedEvents)) else NA_character_,
-    stringsAsFactors=FALSE)
+  logged_events <- if (is.null(imp$loggedEvents)) 0L else nrow(imp$loggedEvents)
+
+  data.frame(
+    method="FCS-MI",
+    estimate=pooled["estimate"],
+    se=pooled["se"],
+    df=pooled["df"],
+    p_value=pooled["p_value"],
+    conf_low=pooled["conf_low"],
+    conf_high=pooled["conf_high"],
+    status="ok",
+    message=if (logged_events > 0L) paste("mice logged events:", logged_events) else NA_character_,
+    mi_logged_events=as.integer(logged_events),
+    stringsAsFactors=FALSE
+  )
 }
