@@ -7,3 +7,4 @@
 
 * Finalized the initial public API for analysis settings: users can analyze one or multiple outcomes, choose a subset of methods, set the confidence level, control FCS/JM-MI computation, and supply either one reproducible seed or outcome-specific seeds.
 * Polished `tbl_sensitivity()` with user-controlled decimal places, outcome/method labels, optional standard-error columns, captions, and gtsummary/data-frame output modes.
+* Added `plot_sensitivity()` and `plot()` support for forest plots of method-specific estimates and confidence intervals, including outcome/method filtering, custom labels, configurable reference lines, and fixed or free facet scales.
