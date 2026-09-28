@@ -306,13 +306,51 @@ tbl_sensitivity(
 Method-level status and available diagnostics can be extracted with
 `diagnostics()`.
 
+The default view combines general status information with method-specific
+diagnostics:
+
 ```{r diagnostics}
 diagnostics(fit_one)
 ```
 
-IPW and AIPW objects include weight diagnostics when those methods are run,
-including the minimum weight, 99th percentile, maximum weight, coefficient of
-variation, and effective sample size.
+A compact status view is available with:
+
+```{r diagnostics-status}
+diagnostics(fit_one, type = "status")
+```
+
+For IPW and AIPW, request weight diagnostics directly:
+
+```{r diagnostics-weights}
+diagnostics(fit_one, type = "weights")
+```
+
+These include the minimum weight, 99th percentile, maximum weight, coefficient
+of variation, effective sample size, and effective sample size as a fraction of
+the Phase-2 sample size.
+
+For FCS-MI and JM-MI, use:
+
+```{r diagnostics-mi, eval=FALSE}
+diagnostics(fit_full, type = "mi")
+```
+
+This reports the number of imputations and relevant iteration settings. For
+FCS-MI, the number of logged `mice` events is also retained.
+
+Diagnostics can be filtered to particular outcomes or methods:
+
+```{r diagnostics-filter}
+diagnostics(
+  fit_two,
+  outcome = "outcome2",
+  method = "ipw"
+)
+```
+
+The package reports diagnostic quantities but does not automatically label them
+as acceptable or unacceptable. Interpretation should reflect the study design,
+sampling mechanism, and substantive context.
 
 # Relabel methods and outcomes
 
