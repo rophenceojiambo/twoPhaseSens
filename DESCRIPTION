@@ -18,6 +18,7 @@ Imports:
     gtsummary (>= 2.0.0),
     jomo,
     mice,
+    rlang,
     tidyselect
 Suggests:
     knitr,

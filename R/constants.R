@@ -11,3 +11,31 @@
 .twophasesens_method_order <- c(
   "Naive", "CCA", "FCS-MI", "JM-MI", "IPW", "AIPW"
 )
+
+# Publication-style method aesthetics used consistently across package figures.
+.twophasesens_method_colors <- c(
+  "Naive" = "#1B9E77",
+  "CCA" = "#D95F02",
+  "FCS-MI" = "#7570B3",
+  "JM-MI" = "#E7298A",
+  "IPW" = "#66A61E",
+  "AIPW" = "#E6AB02"
+)
+
+.twophasesens_method_shapes <- c(
+  "Naive" = 1L,
+  "CCA" = 2L,
+  "FCS-MI" = 0L,
+  "JM-MI" = 5L,
+  "IPW" = 6L,
+  "AIPW" = 10L
+)
+
+.twophasesens_method_linetypes <- c(
+  "Naive" = "solid",
+  "CCA" = "dashed",
+  "FCS-MI" = "dotted",
+  "JM-MI" = "dotdash",
+  "IPW" = "longdash",
+  "AIPW" = "twodash"
+)

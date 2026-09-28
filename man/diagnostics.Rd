@@ -2,15 +2,42 @@
 % Please edit documentation in R/diagnostics.R
 \name{diagnostics}
 \alias{diagnostics}
-\title{Extract method diagnostics}
+\alias{diagnostics.twophase_sensitivity}
+\title{Extract diagnostics from a twoPhaseSens analysis}
 \usage{
 diagnostics(x, ...)
+
+\method{diagnostics}{twophase_sensitivity}(
+  x,
+  type = c("all", "status", "weights", "mi"),
+  outcome = NULL,
+  method = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{An object.}
 
-\item{...}{Additional arguments.}
+\item{...}{Additional arguments passed to methods.}
+
+\item{type}{Diagnostic view. One of \code{"all"}, \code{"status"}, \code{"weights"}, or \code{"mi"}.}
+
+\item{outcome}{Optional character vector selecting one or more outcomes.}
+
+\item{method}{Optional character vector selecting one or more methods. Method names are normalized in the same way as in \code{twophase_sensitivity()}.}
+}
+\value{
+A data frame with one row per selected outcome-method combination.
 }
 \description{
-Extract method diagnostics
+Returns method-level information from a \code{twophase_sensitivity()} fit. The
+default view contains analysis status, sample-size information, stochastic
+settings, multiple-imputation settings, and available IPW/AIPW weight
+diagnostics. More focused views can be requested with \code{type}.
+}
+\details{
+The function reports diagnostics but does not automatically label values as
+acceptable or unacceptable. Interpretation of weight variability, effective
+sample size, imputation behavior, and method failures should be based on the
+study design and scientific context.
 }

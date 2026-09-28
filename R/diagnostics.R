@@ -17,6 +17,7 @@ diagnostics <- function(x, ...) {
   UseMethod("diagnostics")
 }
 
+#' @rdname diagnostics
 #' @param type Diagnostic view. One of `"all"`, `"status"`,
 #'   `"weights"`, or `"mi"`.
 #' @param outcome Optional character vector selecting one or more outcomes.

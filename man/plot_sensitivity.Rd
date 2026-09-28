@@ -14,7 +14,10 @@ plot_sensitivity(
   reference_line = 0,
   facet_scales = c("free_x", "fixed"),
   x_label = NULL,
-  title = NULL
+  title = NULL,
+  annotate = TRUE,
+  estimate_digits = 3L,
+  p_digits = 3L
 )
 
 \method{plot}{twophase_sensitivity}(x, ...)
@@ -38,11 +41,21 @@ plot_sensitivity(
 
 \item{title}{Optional plot title.}
 
+\item{annotate}{Logical; if \code{TRUE} (default), add manuscript-style right-side columns for the coefficient with confidence interval and p value.}
+
+\item{estimate_digits}{Number of digits used in the coefficient and confidence-interval annotation.}
+
+\item{p_digits}{Number of digits used in the p-value annotation.}
+
 \item{...}{Arguments passed to \code{plot_sensitivity()}.}
 }
 \value{
 A \code{ggplot} object.
 }
 \description{
-Creates a forest plot from a \code{twophase_sensitivity} object. Each method is displayed as a point estimate with its stored confidence interval. With multiple outcomes, outcomes are shown in separate facets.
+Creates a publication-style forest plot from a \code{twophase_sensitivity}
+object. Each method is shown with a method-specific color and symbol,
+horizontal confidence interval, and optional right-side text columns for the
+formatted coefficient/CI and p value. With multiple outcomes, outcomes are
+shown in separate facets.
 }

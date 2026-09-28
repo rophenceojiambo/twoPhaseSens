@@ -4,5 +4,6 @@
 #' exposure coefficient when a continuous covariate block is observed only in
 #' a Phase-2 subsample.
 #'
+#' @importFrom rlang .data
 #' @keywords internal
 "_PACKAGE"

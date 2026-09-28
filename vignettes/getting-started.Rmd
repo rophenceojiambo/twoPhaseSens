@@ -354,8 +354,11 @@ sampling mechanism, and substantive context.
 
 # Plot the sensitivity analysis
 
-The fitted object can also be displayed as a forest plot of method-specific
-coefficients and confidence intervals.
+The fitted object can also be displayed as a publication-style forest plot of
+method-specific coefficients and confidence intervals. The default styling
+uses the same six-method color palette and open-symbol scheme as the manuscript
+figures and adds right-side columns for the formatted coefficient (95% CI) and
+p value.
 
 For a single outcome:
 
@@ -400,8 +403,10 @@ plot_sensitivity(
 ```
 
 The default reference line is 0. It can be changed or removed with
-`reference_line`. Because the function returns a `ggplot` object, additional
-`ggplot2` layers can be added by the user.
+`reference_line`. The right-side annotation columns can be removed with
+`annotate = FALSE`, and their decimal precision can be controlled with
+`estimate_digits` and `p_digits`. Because the function returns a `ggplot`
+object, additional `ggplot2` layers can be added by the user.
 
 # Relabel methods and outcomes
 
