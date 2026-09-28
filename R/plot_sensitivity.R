@@ -184,8 +184,6 @@ plot_sensitivity <- function(
   method_colors <- .twophasesens_method_colors[methods]
   method_shapes <- .twophasesens_method_shapes[methods]
 
-  figure_font <- "sans"
-
   base_data <- d[d$method != "AIPW", , drop = FALSE]
   aipw_data <- d[d$method == "AIPW", , drop = FALSE]
 
@@ -290,12 +288,10 @@ plot_sensitivity <- function(
       color = NULL
     ) +
     ggplot2::theme_bw(
-      base_size = 12,
-      base_family = figure_font
+      base_size = 12
     ) +
     ggplot2::theme(
       text = ggplot2::element_text(
-        family = figure_font,
         colour = "black"
       ),
       plot.title = ggplot2::element_text(
@@ -441,7 +437,6 @@ plot_sensitivity <- function(
         ),
         hjust = 0,
         color = "black",
-        family = figure_font,
         size = 3.00,
         inherit.aes = FALSE
       ) +
@@ -454,7 +449,6 @@ plot_sensitivity <- function(
         ),
         hjust = 0,
         color = "black",
-        family = figure_font,
         size = 3.00,
         inherit.aes = FALSE
       ) +
@@ -469,7 +463,6 @@ plot_sensitivity <- function(
         vjust = -1.55,
         fontface = "bold",
         color = "black",
-        family = figure_font,
         size = 3.05,
         inherit.aes = FALSE
       ) +
@@ -484,7 +477,6 @@ plot_sensitivity <- function(
         vjust = -1.55,
         fontface = "bold",
         color = "black",
-        family = figure_font,
         size = 3.05,
         inherit.aes = FALSE
       )
