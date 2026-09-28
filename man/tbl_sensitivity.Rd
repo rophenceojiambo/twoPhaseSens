@@ -1,26 +1,34 @@
 \name{tbl_sensitivity}
 \alias{tbl_sensitivity}
-\title{Create a sensitivity-analysis comparison table}
+\title{Create a publication-ready sensitivity-analysis table}
 \usage{
 tbl_sensitivity(
   x,
   estimate_digits = 4L,
   p_digits = 3L,
   include_se = FALSE,
-  method_labels = NULL
+  method_labels = NULL,
+  outcome_labels = NULL,
+  caption = NULL,
+  output = c("gtsummary", "data.frame")
 )
 }
 \arguments{
   \item{x}{A \code{twophase_sensitivity} object.}
-  \item{estimate_digits}{Digits for estimates and confidence limits.}
-  \item{p_digits}{Digits for p values.}
-  \item{include_se}{Include a separate standard-error column for each outcome.}
-  \item{method_labels}{Optional named character vector for method labels.}
+  \item{estimate_digits}{Number of digits for estimates and confidence limits.}
+  \item{p_digits}{Number of digits for p values.}
+  \item{include_se}{Logical; include a separate standard-error column for each outcome.}
+  \item{method_labels}{Optional named character vector used to relabel methods.}
+  \item{outcome_labels}{Optional character vector used to relabel outcomes. Supply a named vector keyed by the original outcome names or an unnamed vector in outcome order.}
+  \item{caption}{Optional table caption. Markdown is supported for \code{output = "gtsummary"}.}
+  \item{output}{Output type: \code{"gtsummary"} (default) or \code{"data.frame"}.}
 }
 \value{
-A data frame with methods in rows and outcome-specific result columns.
+A \code{gtsummary} object by default, or a formatted data frame when
+\code{output = "data.frame"}.
 }
 \description{
-Formats the results of a \code{twophase_sensitivity} analysis into a
-method-comparison table.
+Formats method-comparison results from \code{twophase_sensitivity()} with
+methods in rows and one group of columns per outcome. The default output is a
+publication-ready \code{gtsummary} table.
 }
