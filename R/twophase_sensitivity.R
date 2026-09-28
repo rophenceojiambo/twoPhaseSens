@@ -54,6 +54,8 @@ twophase_sensitivity <- function(
   }
 
   method_labels <- .normalize_methods(methods)
+  analysis_seeds <- .resolve_analysis_seeds(seed, outcome)
+
   results <- vector("list",length(outcome))
   internal_maps <- vector("list",length(outcome))
 
@@ -63,7 +65,7 @@ twophase_sensitivity <- function(
       data=data, outcome=yy, exposure=exposure, covariates=covariates,
       phase2_covariates=phase2_covariates, phase2=phase2
     )
-    seed_i <- if (is.null(seed)) NULL else as.integer(seed)+i-1L
+    seed_i <- if (is.na(analysis_seeds[[i]])) NULL else analysis_seeds[[i]]
 
     method_results <- .with_preserved_seed(
       seed_i,
@@ -125,7 +127,7 @@ twophase_sensitivity <- function(
       mice_maxit=as.integer(mice_maxit),
       jomo_nburn=as.integer(jomo_nburn),
       jomo_nbetween=as.integer(jomo_nbetween),
-      seed=seed,
+      seed=if (all(is.na(analysis_seeds))) NULL else analysis_seeds,
       conf_level=conf_level,
       probability_floor=.twophasesens_defaults$probability_floor,
       matrix_tolerance=.twophasesens_defaults$matrix_tolerance
