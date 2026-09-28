@@ -1,0 +1,24 @@
+Package: twoPhaseSens
+Title: Sensitivity Analysis for Covariates Observed in Two-Phase Samples
+Version: 0.0.0.9000
+Authors@R: person("Rophence", "Ojiambo", role = c("aut", "cre"))
+Description: Provides a structured sensitivity-analysis workflow for linear
+    regression when important adjustment covariates are observed only in a
+    Phase-2 subsample. The development version implements naive analysis,
+    complete-case analysis, fully conditional specification multiple
+    imputation, joint-model multiple imputation, inverse probability
+    weighting, and augmented inverse probability weighting. This package is
+    under active development and has not yet been released to CRAN.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports:
+    jomo,
+    mice
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+Config/testthat/edition: 3
