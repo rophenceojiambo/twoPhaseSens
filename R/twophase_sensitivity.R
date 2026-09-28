@@ -5,7 +5,10 @@
 #' observed only in a Phase-2 subsample.
 #'
 #' @param data A data frame.
-#' @param outcome Character vector naming one or more continuous outcomes.
+#' @param outcome Character vector naming one or more continuous outcomes. A
+#'   single outcome is fully supported. Multiple outcomes are analyzed
+#'   separately using the same exposure, covariates, Phase-2 variables, and
+#'   requested methods.
 #' @param exposure Character scalar naming the numeric primary exposure.
 #' @param covariates Character vector naming fully observed Phase-1 covariates.
 #' @param phase2_covariates Character vector naming continuous Phase-2 covariates.
@@ -15,7 +18,10 @@
 #' @param mice_maxit Maximum FCS iterations.
 #' @param jomo_nburn JM-MI burn-in iterations.
 #' @param jomo_nbetween JM-MI iterations between saved imputations.
-#' @param seed Optional seed. When supplied, the previous global RNG state is restored.
+#' @param seed Optional random-number seed. Supply either one non-negative
+#'   integer, which is expanded sequentially across outcomes, or one integer
+#'   per outcome. A named vector may be supplied using the outcome names. The
+#'   previous global RNG state is restored after each outcome analysis.
 #' @param conf_level Confidence level for intervals.
 #' @return An object of class `twophase_sensitivity`.
 #' @export
