@@ -12,11 +12,12 @@ Description: Provides a structured sensitivity-analysis workflow for linear
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports:
     gtsummary (>= 2.0.0),
     jomo,
-    mice
+    mice,
+    tidyselect
 Suggests:
     knitr,
     rmarkdown,
