@@ -65,8 +65,6 @@ confidence-interval annotation.}
 }
 \value{
 A \code{ggplot} object.
-
-A \code{ggplot} object.
 }
 \description{
 Creates a publication-style forest plot from a \code{\link[=twophase_sensitivity]{twophase_sensitivity()}}
@@ -74,4 +72,18 @@ object. Each method is shown with a method-specific color and symbol,
 horizontal confidence interval, and optional right-side text columns for the
 formatted coefficient/CI and p value. With multiple outcomes, outcomes are
 shown in separate facets.
+}
+\examples{
+dat <- twophase_example_data(n = 200, seed = 2026)
+fit <- twophase_sensitivity(
+  data = dat,
+  outcome = "outcome1",
+  exposure = "exposure",
+  covariates = c("age", "sex"),
+  phase2_covariates = c("marker1", "marker2", "marker3"),
+  phase2 = "phase2",
+  methods = c("naive", "cca", "ipw"),
+  seed = 1001
+)
+plot_sensitivity(fit, outcome_labels = c(outcome1 = "Outcome 1"))
 }

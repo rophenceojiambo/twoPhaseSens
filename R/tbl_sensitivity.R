@@ -22,6 +22,20 @@
 #' @return A `gtsummary` object by default, or a formatted data frame when
 #'   `output = "data.frame"`.
 #'
+#' @examples
+#' dat <- twophase_example_data(n = 200, seed = 2026)
+#' fit <- twophase_sensitivity(
+#'   data = dat,
+#'   outcome = "outcome1",
+#'   exposure = "exposure",
+#'   covariates = c("age", "sex"),
+#'   phase2_covariates = c("marker1", "marker2", "marker3"),
+#'   phase2 = "phase2",
+#'   methods = c("naive", "cca", "ipw"),
+#'   seed = 1001
+#' )
+#' tbl_sensitivity(fit, output = "data.frame")
+#'
 #' @export
 tbl_sensitivity <- function(
   x,
