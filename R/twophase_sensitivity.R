@@ -24,6 +24,21 @@
 #'   previous global RNG state is restored after each outcome analysis.
 #' @param conf_level Confidence level for intervals.
 #' @return An object of class `twophase_sensitivity`.
+#'
+#' @examples
+#' dat <- twophase_example_data(n = 200, seed = 2026)
+#' fit <- twophase_sensitivity(
+#'   data = dat,
+#'   outcome = "outcome1",
+#'   exposure = "exposure",
+#'   covariates = c("age", "sex"),
+#'   phase2_covariates = c("marker1", "marker2", "marker3"),
+#'   phase2 = "phase2",
+#'   methods = c("naive", "cca", "ipw"),
+#'   seed = 1001
+#' )
+#' fit
+#'
 #' @export
 twophase_sensitivity <- function(
   data,
