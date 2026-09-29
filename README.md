@@ -15,7 +15,16 @@ The planned first release compares six approaches for a linear-regression exposu
 
 Current development version: `0.0.0.9000`. The six analytic methods have been generalized into the package interface and numerically checked against the validated manuscript implementation for both MIDUS outcomes. Automated tests and R CMD check are passing on the development repository. The package remains under active development and has not yet been released to CRAN.
 
-## Planned interface
+## Installation
+
+Install the development version from GitHub with:
+
+```r
+# install.packages("remotes")
+remotes::install_github("rophenceojiambo/twoPhaseSens")
+```
+
+## Basic workflow
 
 ```r
 fit <- twophase_sensitivity(
@@ -32,8 +41,6 @@ tbl_sensitivity(fit)
 diagnostics(fit)
 plot_sensitivity(fit)
 ```
-
-See `README_STEP3.md` for development notes and validation requirements.
 
 
 ## Plot display and export

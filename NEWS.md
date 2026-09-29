@@ -10,3 +10,8 @@
 * Added `plot_sensitivity()` and `plot()` support for forest plots of method-specific estimates and confidence intervals, including outcome/method filtering, custom labels, configurable reference lines, and fixed or free facet scales.
 
 * Upgraded `plot_sensitivity()` to the manuscript publication style, including the validated six-method palette, open method-specific symbols, horizontal confidence intervals, a dotted null line, and right-side coefficient/CI and p-value annotations.
+
+* Completed numerical validation against the manuscript implementation for both MIDUS outcomes across all six methods.
+* Added a synthetic example-data generator and a full Getting Started vignette.
+* Refined publication forest plots for single- and multiple-outcome analyses, including portable font handling, outcome facet strips, customizable estimate labels, and manuscript-size export guidance.
+* Updated README and package metadata for release-readiness review.
