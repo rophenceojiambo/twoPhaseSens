@@ -61,3 +61,17 @@ Runs a prespecified set of analytic approaches for a linear-regression
 exposure coefficient when a block of continuous adjustment covariates is
 observed only in a Phase-2 subsample.
 }
+\examples{
+dat <- twophase_example_data(n = 200, seed = 2026)
+fit <- twophase_sensitivity(
+  data = dat,
+  outcome = "outcome1",
+  exposure = "exposure",
+  covariates = c("age", "sex"),
+  phase2_covariates = c("marker1", "marker2", "marker3"),
+  phase2 = "phase2",
+  methods = c("naive", "cca", "ipw"),
+  seed = 1001
+)
+fit
+}
