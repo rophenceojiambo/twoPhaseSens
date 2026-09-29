@@ -33,6 +33,20 @@
 #'
 #' @return A `ggplot` object.
 #'
+#' @examples
+#' dat <- twophase_example_data(n = 200, seed = 2026)
+#' fit <- twophase_sensitivity(
+#'   data = dat,
+#'   outcome = "outcome1",
+#'   exposure = "exposure",
+#'   covariates = c("age", "sex"),
+#'   phase2_covariates = c("marker1", "marker2", "marker3"),
+#'   phase2 = "phase2",
+#'   methods = c("naive", "cca", "ipw"),
+#'   seed = 1001
+#' )
+#' plot_sensitivity(fit, outcome_labels = c(outcome1 = "Outcome 1"))
+#'
 #' @export
 plot_sensitivity <- function(
   x,
@@ -551,8 +565,6 @@ plot_sensitivity <- function(
 #' @rdname plot_sensitivity
 #' @param x A `twophase_sensitivity` object.
 #' @param ... Arguments passed to [plot_sensitivity()].
-#'
-#' @return A `ggplot` object.
 #' @export
 plot.twophase_sensitivity <- function(x, ...) {
   plot_sensitivity(x, ...)
