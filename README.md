@@ -2,7 +2,7 @@
 
 `twoPhaseSens` is an R package under development for method-comparison sensitivity analyses when important continuous adjustment covariates are observed only in a Phase-2 subsample.
 
-The planned first release compares six approaches for a linear-regression exposure coefficient:
+Version 0.1.0 compares six approaches for a linear-regression exposure coefficient:
 
 1. Naive Phase-1 analysis
 2. Complete-case analysis (CCA)
@@ -13,7 +13,7 @@ The planned first release compares six approaches for a linear-regression exposu
 
 ## Development status
 
-Current development version: `0.0.0.9000`. The six analytic methods have been generalized into the package interface and numerically checked against the validated manuscript implementation for both MIDUS outcomes. Automated tests and R CMD check are passing on the development repository. The package remains under active development and has not yet been released to CRAN.
+Current release candidate: `0.1.0`. The six analytic methods have been generalized into the package interface and numerically checked against the validated manuscript implementation for both MIDUS outcomes. Automated tests, cross-platform R CMD checks, and a clean source-install smoke test are passing. The package has not yet been released to CRAN.
 
 ## Installation
 
