@@ -2,14 +2,16 @@ Package: twoPhaseSens
 Title: Sensitivity Analysis for Covariates Observed in Two-Phase Samples
 Version: 0.0.0.9000
 Authors@R: c(person("Rophence", "Ojiambo", email = "rophence.ojiambo@nyu.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6798-9066")), person("Jemar", "Bather", email = "jemar.bather@nyu.edu", role = "aut", comment = c(ORCID = "0000-0002-0285-3678")))
-Description: Provides a structured sensitivity-analysis workflow for linear
-    regression when important adjustment covariates are observed only in a
-    Phase-2 subsample. The development version implements naive analysis,
-    complete-case analysis, fully conditional specification multiple
+Description: Provides a structured method-comparison sensitivity-analysis
+    workflow for linear regression when important continuous adjustment
+    covariates are observed only in a Phase-2 subsample. Implements naive
+    analysis, complete-case analysis, fully conditional specification multiple
     imputation, joint-model multiple imputation, inverse probability
-    weighting, and augmented inverse probability weighting. This package is
-    under active development and has not yet been released to CRAN.
+    weighting, and augmented inverse probability weighting, with standardized
+    tables, diagnostics, and publication-style forest plots.
 License: MIT + file LICENSE
+URL: https://github.com/rophenceojiambo/twoPhaseSens
+BugReports: https://github.com/rophenceojiambo/twoPhaseSens/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
