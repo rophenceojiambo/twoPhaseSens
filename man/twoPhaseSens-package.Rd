@@ -6,9 +6,32 @@
 \alias{twoPhaseSens-package}
 \title{twoPhaseSens: sensitivity analysis for covariates observed in two-phase samples}
 \description{
-The package compares six prespecified approaches for a linear-regression
-exposure coefficient when a continuous covariate block is observed only in
-a Phase-2 subsample.
+\code{twoPhaseSens} provides a standardized workflow for comparing analytic
+approaches when important continuous adjustment covariates are observed only
+in a Phase-2 subsample.
+}
+\details{
+The current validated scope is a continuous outcome with a linear-regression
+target model, a numeric primary exposure, fully observed Phase-1 covariates,
+and a block of continuous Phase-2 covariates observed only when the Phase-2
+indicator equals 1.
+
+Six methods are available: Naive, complete-case analysis (CCA), fully
+conditional specification multiple imputation (FCS-MI), joint-model multiple
+imputation (JM-MI), inverse probability weighting (IPW), and augmented
+inverse probability weighting (AIPW).
+
+The main entry point is \code{\link[=twophase_sensitivity]{twophase_sensitivity()}}. Results can be summarized
+with \code{\link[=tbl_sensitivity]{tbl_sensitivity()}}, inspected with \code{\link[=diagnostics]{diagnostics()}}, and visualized with
+\code{\link[=plot_sensitivity]{plot_sensitivity()}}.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/rophenceojiambo/twoPhaseSens}
+  \item Report bugs at \url{https://github.com/rophenceojiambo/twoPhaseSens/issues}
+}
+
 }
 \author{
 \strong{Maintainer}: Rophence Ojiambo \email{rophence.ojiambo@nyu.edu} (\href{https://orcid.org/0000-0002-6798-9066}{ORCID})
