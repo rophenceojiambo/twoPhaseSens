@@ -1,4 +1,4 @@
-# twoPhaseSens (development version 0.0.0.9000)
+# twoPhaseSens 0.1.0
 
 * Initialized package development scaffold.
 * Generalized the validated six-method engine to use internal canonical variable roles rather than MIDUS-specific variable names.
@@ -15,3 +15,6 @@
 * Added a synthetic example-data generator and a full Getting Started vignette.
 * Refined publication forest plots for single- and multiple-outcome analyses, including portable font handling, outcome facet strips, customizable estimate labels, and manuscript-size export guidance.
 * Updated README and package metadata for release-readiness review.
+* Added runnable examples for the public API and focused regression tests for FCS-MI, JM-MI, IPW, and AIPW.
+* Expanded R CMD check to Ubuntu, Windows, and macOS on current R, plus R-devel and R-oldrel-1 on Ubuntu.
+* Verified installation and end-to-end execution from the built source tarball in a fresh R library and process.
