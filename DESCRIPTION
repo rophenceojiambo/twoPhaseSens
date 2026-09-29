@@ -1,6 +1,6 @@
 Package: twoPhaseSens
 Title: Sensitivity Analysis for Covariates Observed in Two-Phase Samples
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(person("Rophence", "Ojiambo", email = "rophence.ojiambo@nyu.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6798-9066")), person("Jemar", "Bather", email = "jemar.bather@nyu.edu", role = "aut", comment = c(ORCID = "0000-0002-0285-3678")))
 Description: Provides a structured method-comparison sensitivity-analysis
     workflow for linear regression when important continuous adjustment
