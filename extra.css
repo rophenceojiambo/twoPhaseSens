@@ -1,0 +1,35 @@
+/* Wider pkgdown content area for examples and console output. */
+@media (min-width: 1400px) {
+  .container,
+  .container-lg,
+  .container-xl,
+  .container-xxl {
+    max-width: 1600px;
+  }
+
+  .template-article .col-md-9 {
+    flex: 0 0 80%;
+    max-width: 80%;
+  }
+
+  .template-article .col-md-3 {
+    flex: 0 0 20%;
+    max-width: 20%;
+  }
+}
+
+/* Preserve tabular console output and allow horizontal scrolling as a fallback. */
+.template-article pre,
+.template-home pre,
+.template-reference pre,
+.template-article .sourceCode,
+.template-home .sourceCode,
+.template-reference .sourceCode {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.template-article pre {
+  font-size: 0.90rem;
+}

@@ -72,7 +72,7 @@ interactive preview.
 
 For exported output, specify the graphics size explicitly. As practical
 starting points, use approximately 9.5 x 6 inches for one annotated
-outcome and 13 x 6 inches for two annotated outcomes.
+outcome and 14 x 6 inches for two annotated outcomes.
 
 ``` r
 

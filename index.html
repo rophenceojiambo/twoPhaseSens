@@ -10,7 +10,8 @@
 <link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Sensitivity Analysis for Covariates Observed in Two-Phase Samples">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
+<meta property="og:title" content="Sensitivity Analysis for Covariates Observed in Two-Phase Samples">
 <meta name="description" content="Provides a structured method-comparison sensitivity-analysis workflow for linear regression when important continuous adjustment covariates are observed only in a Phase-2 subsample. Implements naive analysis, complete-case analysis, fully conditional specification multiple imputation, joint-model multiple imputation, inverse probability weighting, and augmented inverse probability weighting, with standardized tables, diagnostics, and publication-style forest plots.">
 <meta property="og:description" content="Provides a structured method-comparison sensitivity-analysis workflow for linear regression when important continuous adjustment covariates are observed only in a Phase-2 subsample. Implements naive analysis, complete-case analysis, fully conditional specification multiple imputation, joint-model multiple imputation, inverse probability weighting, and augmented inverse probability weighting, with standardized tables, diagnostics, and publication-style forest plots.">
 </head>
@@ -104,7 +105,7 @@
 <h2 id="plot-display-and-export">Plot display and export<a class="anchor" aria-label="anchor" href="#plot-display-and-export"></a>
 </h2>
 <p><code><a href="reference/plot_sensitivity.html">plot_sensitivity()</a></code> returns a publication-style <code>ggplot</code> object. Annotated plots can look compressed in a small RStudio Plots pane, especially with two outcomes. Use <strong>Zoom</strong>, enlarge the pane, or set <code>annotate = FALSE</code> for a compact interactive preview.</p>
-<p>For exported output, specify the graphics size explicitly. As practical starting points, use approximately 9.5 x 6 inches for one annotated outcome and 13 x 6 inches for two annotated outcomes.</p>
+<p>For exported output, specify the graphics size explicitly. As practical starting points, use approximately 9.5 x 6 inches for one annotated outcome and 14 x 6 inches for two annotated outcomes.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_sensitivity.html">plot_sensitivity</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit</span>,</span>
