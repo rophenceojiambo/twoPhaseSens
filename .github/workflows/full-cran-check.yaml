@@ -29,6 +29,12 @@ jobs:
 
       - uses: r-lib/actions/setup-tinytex@v2
 
+      - name: Install TeX and HTML-validation support
+        run: |
+          tlmgr install collection-latexrecommended collection-fontsrecommended collection-latexextra
+          sudo apt-get update
+          sudo apt-get install -y tidy
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
@@ -40,19 +46,25 @@ jobs:
         run: |
           R CMD build .
           test -f twoPhaseSens_0.1.0.tar.gz
+          echo "===== tarball top level ====="
+          tar -tzf twoPhaseSens_0.1.0.tar.gz | sed -n '1,80p'
 
       - name: Full R CMD check --as-cran
         run: |
           set -o pipefail
           R CMD check --as-cran twoPhaseSens_0.1.0.tar.gz 2>&1 | tee full-cran-check.log
 
-      - name: Show check summary
+      - name: Show check diagnostics
         if: always()
         run: |
           echo "===== 00check.log ====="
           if [ -f twoPhaseSens.Rcheck/00check.log ]; then
             cat twoPhaseSens.Rcheck/00check.log
           fi
+          echo "===== check-directory files ====="
+          find twoPhaseSens.Rcheck -maxdepth 2 -type f -print 2>/dev/null | sort || true
+          echo "===== TeX/LaTeX diagnostics ====="
+          find twoPhaseSens.Rcheck -type f \( -name '*.log' -o -name '*.out' -o -name '*.tex' \) -print -exec sh -c 'echo "--- $1 ---"; tail -n 160 "$1"' _ {} \; 2>/dev/null || true
 
       - name: Upload CRAN-check artifacts
         if: always()
@@ -62,6 +74,5 @@ jobs:
           path: |
             twoPhaseSens_0.1.0.tar.gz
             full-cran-check.log
-            twoPhaseSens.Rcheck/00check.log
-            twoPhaseSens.Rcheck/twoPhaseSens-manual.pdf
+            twoPhaseSens.Rcheck/
           if-no-files-found: warn
