@@ -1,6 +1,6 @@
 # twoPhaseSens
 
-`twoPhaseSens` is an R package under development for method-comparison sensitivity analyses when important continuous adjustment covariates are observed only in a Phase-2 subsample.
+`twoPhaseSens` is an R package for method-comparison sensitivity analyses when important continuous adjustment covariates are observed only in a Phase-2 subsample.
 
 Version 0.1.0 compares six approaches for a linear-regression exposure coefficient:
 
@@ -11,18 +11,23 @@ Version 0.1.0 compares six approaches for a linear-regression exposure coefficie
 5. Inverse probability weighting (IPW)
 6. Augmented inverse probability weighting (AIPW)
 
-## Development status
+## Release status
 
-Current release candidate: `0.1.0`. The six analytic methods have been generalized into the package interface and numerically checked against the validated manuscript implementation for both MIDUS outcomes. Automated tests, cross-platform R CMD checks, and a clean source-install smoke test are passing. The package has not yet been released to CRAN.
+Version `0.1.0` is the first public release of `twoPhaseSens`. The six analytic methods have been generalized into the package interface and numerically checked against the validated manuscript implementation for both MIDUS outcomes. Automated tests, cross-platform R CMD checks, source-package checks, Win-builder checks, and a clean source-install smoke test are passing.
 
 ## Installation
 
-Install the development version from GitHub with:
+Install version `0.1.0` from GitHub with:
 
 ```r
 # install.packages("remotes")
-remotes::install_github("rophenceojiambo/twoPhaseSens")
+remotes::install_github(
+  "rophenceojiambo/twoPhaseSens",
+  upgrade = "never"
+)
 ```
+
+After the package is available on CRAN, it can also be installed with `install.packages("twoPhaseSens")`.
 
 ## Basic workflow
 
