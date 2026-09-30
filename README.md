@@ -27,13 +27,21 @@ remotes::install_github("rophenceojiambo/twoPhaseSens")
 ## Basic workflow
 
 ```r
+library(twoPhaseSens)
+
+dat <- twophase_example_data(
+  n = 300,
+  seed = 2026
+)
+
 fit <- twophase_sensitivity(
   data = dat,
   outcome = c("outcome1", "outcome2"),
   exposure = "exposure",
   covariates = c("age", "sex"),
-  phase2_covariates = c("marker1", "marker2"),
+  phase2_covariates = c("marker1", "marker2", "marker3"),
   phase2 = "phase2",
+  methods = c("naive", "cca", "ipw"),
   seed = 20260928
 )
 
@@ -41,6 +49,9 @@ tbl_sensitivity(fit)
 diagnostics(fit)
 plot_sensitivity(fit)
 ```
+
+The example above uses three fast methods for a quick first run. Omit the
+`methods` argument to run all six methods in version 0.1.0.
 
 
 ## Plot display and export
