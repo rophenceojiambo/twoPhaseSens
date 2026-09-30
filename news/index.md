@@ -57,3 +57,7 @@
 
 - Verified installation and end-to-end execution from the built source
   tarball in a fresh R library and process.
+
+- Prepared version 0.1.0 for public release, including the public GitHub
+  repository, pkgdown documentation website, full R-devel source-package
+  checks, and Windows checks on R-devel, R-release, and R-oldrelease.

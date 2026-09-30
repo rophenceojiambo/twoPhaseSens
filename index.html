@@ -51,7 +51,7 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="twophasesens">twoPhaseSens<a class="anchor" aria-label="anchor" href="#twophasesens"></a>
 </h1></div>
-<p><code>twoPhaseSens</code> is an R package under development for method-comparison sensitivity analyses when important continuous adjustment covariates are observed only in a Phase-2 subsample.</p>
+<p><code>twoPhaseSens</code> is an R package for method-comparison sensitivity analyses when important continuous adjustment covariates are observed only in a Phase-2 subsample.</p>
 <p>Version 0.1.0 compares six approaches for a linear-regression exposure coefficient:</p>
 <ol style="list-style-type: decimal">
 <li>Naive Phase-1 analysis</li>
@@ -62,17 +62,21 @@
 <li>Augmented inverse probability weighting (AIPW)</li>
 </ol>
 <div class="section level2">
-<h2 id="development-status">Development status<a class="anchor" aria-label="anchor" href="#development-status"></a>
+<h2 id="release-status">Release status<a class="anchor" aria-label="anchor" href="#release-status"></a>
 </h2>
-<p>Current release candidate: <code>0.1.0</code>. The six analytic methods have been generalized into the package interface and numerically checked against the validated manuscript implementation for both MIDUS outcomes. Automated tests, cross-platform R CMD checks, and a clean source-install smoke test are passing. The package has not yet been released to CRAN.</p>
+<p>Version <code>0.1.0</code> is the first public release of <code>twoPhaseSens</code>. The six analytic methods have been generalized into the package interface and numerically checked against the validated manuscript implementation for both MIDUS outcomes. Automated tests, cross-platform R CMD checks, source-package checks, Win-builder checks, and a clean source-install smoke test are passing.</p>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Install the development version from GitHub with:</p>
+<p>Install version <code>0.1.0</code> from GitHub with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"rophenceojiambo/twoPhaseSens"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span></span>
+<span>  <span class="st">"rophenceojiambo/twoPhaseSens"</span>,</span>
+<span>  upgrade <span class="op">=</span> <span class="st">"never"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>After the package is available on CRAN, it can also be installed with <code>install.packages("twoPhaseSens")</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="basic-workflow">Basic workflow<a class="anchor" aria-label="anchor" href="#basic-workflow"></a>

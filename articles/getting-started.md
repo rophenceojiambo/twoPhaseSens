@@ -4,7 +4,8 @@
 
 `twoPhaseSens` compares analytic approaches for a linear-regression
 exposure coefficient when important continuous adjustment covariates are
-observed only in a Phase-2 subsample.
+observed only in a Phase-2 subsample. This vignette documents version
+0.1.0, the package’s first public release.
 
 Version 0.1.0 focuses on the setting in which:
 
