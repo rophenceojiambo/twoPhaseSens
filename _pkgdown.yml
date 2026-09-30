@@ -1,0 +1,34 @@
+url: https://rophenceojiambo.github.io/twoPhaseSens/
+
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left: [home, getstarted, reference, news]
+    right: [search, github]
+  components:
+    getstarted:
+      text: Get Started
+      href: articles/getting-started.html
+
+reference:
+- title: "Run a sensitivity analysis"
+  desc: >
+    Generate example two-phase data and compare the supported analytic methods.
+  contents:
+  - twophase_example_data
+  - twophase_sensitivity
+
+- title: "Summarize and diagnose"
+  desc: >
+    Create the sensitivity-analysis table and inspect method-level diagnostics.
+  contents:
+  - tbl_sensitivity
+  - diagnostics
+
+- title: "Visualize results"
+  desc: >
+    Create publication-style forest plots of the method comparison.
+  contents:
+  - plot_sensitivity
