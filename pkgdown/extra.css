@@ -1,4 +1,6 @@
-/* Wider pkgdown content area for examples and console output. */
+/* Wider pkgdown content area for examples and console output.
+   Keep pkgdown/Bootstrap's native 9/3 article-sidebar grid so the
+   "On this page" navigation remains beside the article. */
 @media (min-width: 1400px) {
   .container,
   .container-lg,
@@ -7,14 +9,9 @@
     max-width: 1600px;
   }
 
-  .template-article .col-md-9 {
-    flex: 0 0 80%;
-    max-width: 80%;
-  }
-
-  .template-article .col-md-3 {
-    flex: 0 0 20%;
-    max-width: 20%;
+  .template-article > .row > main,
+  .template-article > .row > aside {
+    min-width: 0;
   }
 }
 
