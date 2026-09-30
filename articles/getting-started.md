@@ -499,7 +499,12 @@ plot(fit_one)
 ```
 
 For multiple outcomes, the plot uses separate facets. Free x-axis scales
-are used by default because outcomes may have different units.
+are used by default because outcomes may have different units. On
+standard-width screens, including this website, the right-side numeric
+annotations are omitted to keep both panels readable; the exact
+coefficients, confidence intervals, and p values are already available
+in the comparison table above. Annotated multi-outcome figures remain
+available for wide-format export.
 
 ``` r
 
@@ -508,7 +513,8 @@ plot_sensitivity(
   outcome_labels = c(
     outcome1 = "Outcome 1",
     outcome2 = "Outcome 2"
-  )
+  ),
+  annotate = FALSE
 )
 ```
 
@@ -525,15 +531,18 @@ plot_sensitivity(
     outcome1 = "Outcome 1",
     outcome2 = "Outcome 2"
   ),
-  facet_scales = "fixed"
+  facet_scales = "fixed",
+  annotate = FALSE
 )
 ```
 
 ![](getting-started_files/figure-html/multiple-outcome-forest-fixed-1.png)
 
 The default reference line is 0. It can be changed or removed with
-`reference_line`. The right-side annotation columns can be removed with
-`annotate = FALSE`, and their decimal precision can be controlled with
+`reference_line`. The right-side annotation columns are controlled with
+`annotate`; for a single outcome they are useful in ordinary displays,
+while multi-outcome annotations are best reserved for a sufficiently
+wide graphics device. Their decimal precision can be controlled with
 `estimate_digits` and `p_digits`. The estimate-column label can be
 changed with `estimate_label`; for example, a manuscript reporting
 adjusted regression coefficients can use

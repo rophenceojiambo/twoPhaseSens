@@ -1946,17 +1946,22 @@ formatted coefficient (95% CI) and p value.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">fit_one</span><span class="op">)</span></span></code></pre></div>
 <p>For multiple outcomes, the plot uses separate facets. Free x-axis
-scales are used by default because outcomes may have different
-units.</p>
+scales are used by default because outcomes may have different units. On
+standard-width screens, including this website, the right-side numeric
+annotations are omitted to keep both panels readable; the exact
+coefficients, confidence intervals, and p values are already available
+in the comparison table above. Annotated multi-outcome figures remain
+available for wide-format export.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot_sensitivity.html">plot_sensitivity</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit_two</span>,</span>
 <span>  outcome_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>    outcome1 <span class="op">=</span> <span class="st">"Outcome 1"</span>,</span>
 <span>    outcome2 <span class="op">=</span> <span class="st">"Outcome 2"</span></span>
-<span>  <span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  annotate <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/multiple-outcome-forest-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="getting-started_files/figure-html/multiple-outcome-forest-1.png" class="r-plt" alt="" width="912"></p>
 <p>If the outcomes are on a common scale and direct visual comparison is
 desired, users can request fixed axes:</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -1966,13 +1971,16 @@ desired, users can request fixed axes:</p>
 <span>    outcome1 <span class="op">=</span> <span class="st">"Outcome 1"</span>,</span>
 <span>    outcome2 <span class="op">=</span> <span class="st">"Outcome 2"</span></span>
 <span>  <span class="op">)</span>,</span>
-<span>  facet_scales <span class="op">=</span> <span class="st">"fixed"</span></span>
+<span>  facet_scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
+<span>  annotate <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p><img src="getting-started_files/figure-html/multiple-outcome-forest-fixed-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="getting-started_files/figure-html/multiple-outcome-forest-fixed-1.png" class="r-plt" alt="" width="912"></p>
 <p>The default reference line is 0. It can be changed or removed with
-<code>reference_line</code>. The right-side annotation columns can be
-removed with <code>annotate = FALSE</code>, and their decimal precision
-can be controlled with <code>estimate_digits</code> and
+<code>reference_line</code>. The right-side annotation columns are
+controlled with <code>annotate</code>; for a single outcome they are
+useful in ordinary displays, while multi-outcome annotations are best
+reserved for a sufficiently wide graphics device. Their decimal
+precision can be controlled with <code>estimate_digits</code> and
 <code>p_digits</code>. The estimate-column label can be changed with
 <code>estimate_label</code>; for example, a manuscript reporting
 adjusted regression coefficients can use
