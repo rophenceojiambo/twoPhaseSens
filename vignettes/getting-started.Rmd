@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 5
 )
+options(width = 140)
 library(twoPhaseSens)
 ```
 
@@ -376,27 +377,26 @@ plot(fit_one)
 ```
 
 For multiple outcomes, the plot uses separate facets. Free x-axis scales are
-used by default because outcomes may have different units. On standard-width
-screens, including this website, the right-side numeric annotations are omitted
-to keep both panels readable; the exact coefficients, confidence intervals, and
-p values are already available in the comparison table above. Annotated
-multi-outcome figures remain available for wide-format export.
+used by default because outcomes may have different units. The package reserves
+dedicated horizontal space within each facet for the coefficient/CI and p-value
+annotations so the numeric columns remain readable without overlapping the next
+outcome panel.
 
-```{r multiple-outcome-forest, fig.width=9.5, fig.height=4.8}
+```{r multiple-outcome-forest, fig.width=12.5, fig.height=5.4}
 plot_sensitivity(
   fit_two,
   outcome_labels = c(
     outcome1 = "Outcome 1",
     outcome2 = "Outcome 2"
   ),
-  annotate = FALSE
+  annotate = TRUE
 )
 ```
 
 If the outcomes are on a common scale and direct visual comparison is desired,
 users can request fixed axes:
 
-```{r multiple-outcome-forest-fixed, fig.width=9.5, fig.height=4.8}
+```{r multiple-outcome-forest-fixed, fig.width=12.5, fig.height=5.4}
 plot_sensitivity(
   fit_two,
   outcome_labels = c(
@@ -404,15 +404,15 @@ plot_sensitivity(
     outcome2 = "Outcome 2"
   ),
   facet_scales = "fixed",
-  annotate = FALSE
+  annotate = TRUE
 )
 ```
 
 The default reference line is 0. It can be changed or removed with
 `reference_line`. The right-side annotation columns are controlled with
-`annotate`; for a single outcome they are useful in ordinary displays, while
-multi-outcome annotations are best reserved for a sufficiently wide graphics
-device. Their decimal precision can be controlled with `estimate_digits` and
+`annotate`. For multiple outcomes, a wider graphics device is recommended so
+the forest region and the two annotation columns remain comfortably readable.
+Their decimal precision can be controlled with `estimate_digits` and
 `p_digits`. The estimate-column label can be changed
 with `estimate_label`; for example, a manuscript reporting adjusted regression
 coefficients can use `estimate_label = "Adjusted beta"`. An optional overall
@@ -457,7 +457,7 @@ p_two <- plot_sensitivity(
 ggplot2::ggsave(
   "sensitivity_two_outcomes.png",
   p_two,
-  width = 13,
+  width = 14,
   height = 6,
   dpi = 320,
   bg = "white"
