@@ -361,7 +361,16 @@ plot_sensitivity <- function(
       legend.key.width = grid::unit(1.45, "lines"),
       legend.spacing.x = grid::unit(0.20, "cm"),
       legend.margin = ggplot2::margin(t = 2, b = 0),
-      plot.margin = ggplot2::margin(7, 16, 4, 8)
+      panel.spacing.x = grid::unit(
+        if (length(outcomes) > 1L) 1.25 else 0.5,
+        "lines"
+      ),
+      plot.margin = ggplot2::margin(
+        7,
+        if (isTRUE(annotate) && length(outcomes) > 1L) 24 else 16,
+        4,
+        8
+      )
     )
 
 
@@ -384,9 +393,13 @@ plot_sensitivity <- function(
       }
 
       if (multi_panel) {
-        estimate_offset <- 0.22
-        p_offset <- 1.20
-        panel_offset <- 1.46
+        # Multi-outcome panels need substantially more reserved x-space for
+        # the estimate/CI and p-value columns. These offsets are deliberately
+        # generous so annotation text stays inside its own facet rather than
+        # colliding with the next facet.
+        estimate_offset <- 0.18
+        p_offset <- 1.65
+        panel_offset <- 2.12
       } else {
         estimate_offset <- 0.22
         p_offset <- 0.72
@@ -416,8 +429,8 @@ plot_sensitivity <- function(
       )
     }
 
-    annotation_size <- if (length(outcomes) > 1L) 2.80 else 3.00
-    header_size <- if (length(outcomes) > 1L) 2.85 else 3.05
+    annotation_size <- if (length(outcomes) > 1L) 2.55 else 3.00
+    header_size <- if (length(outcomes) > 1L) 2.65 else 3.05
 
     d$estimate_x <- vapply(
       as.character(d$outcome_display),
@@ -549,6 +562,10 @@ plot_sensitivity <- function(
     scales = facet_scales,
     nrow = if (length(outcomes) <= 2L) 1L else NULL
   )
+
+  if (isTRUE(annotate)) {
+    p <- p + ggplot2::coord_cartesian(clip = "off")
+  }
 
   p
 }
