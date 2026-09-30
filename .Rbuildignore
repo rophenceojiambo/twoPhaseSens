@@ -2,4 +2,5 @@
 ^\.Rproj\.user$
 ^\.github$
 ^dev$
-^README_STEP3\.md$
+^_pkgdown\.yml$
+^pkgdown$
