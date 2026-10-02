@@ -57,7 +57,7 @@ right-side columns for the coefficient with confidence interval and p
 value.}
 
 \item{estimate_digits}{Number of digits used in the coefficient and
-confidence-interval annotation.}
+confidence-interval annotation. The default is 3.}
 
 \item{p_digits}{Number of digits used in the p-value annotation.}
 
