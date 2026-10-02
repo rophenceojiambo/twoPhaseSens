@@ -305,3 +305,25 @@ test_that("single-outcome forest plot keeps compact p-value spacing", {
   expect_s3_class(p, "ggplot")
   expect_true(inherits(p$facet, "FacetWrap"))
 })
+
+
+test_that("forest plot defaults to three-decimal estimate and confidence-interval annotations", {
+  dat <- .make_synthetic_twophase_data(n = 320L, seed = 214L)
+
+  fit <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca")
+  )
+
+  p <- plot_sensitivity(fit)
+
+  expect_true(all(grepl(
+    "^-?[0-9]+\\.[0-9]{3} \\(-?[0-9]+\\.[0-9]{3} to -?[0-9]+\\.[0-9]{3}\\)$",
+    p$data$estimate_text
+  )))
+})
