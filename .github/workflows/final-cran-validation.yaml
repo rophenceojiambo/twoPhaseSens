@@ -1,0 +1,73 @@
+name: Final 0.1.0 CRAN validation
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  final-cran-validation:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+      _R_CHECK_CRAN_INCOMING_REMOTE_: false
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: devel
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-tinytex@v2
+
+      - name: Install TeX and HTML-validation support
+        run: |
+          tlmgr install collection-latexrecommended collection-fontsrecommended collection-latexextra
+          sudo apt-get update
+          sudo apt-get install -y tidy
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: |
+            any::rcmdcheck
+            local::.
+          needs: check
+
+      - name: Build exact source tarball
+        run: |
+          R CMD build .
+          test -f twoPhaseSens_0.1.0.tar.gz
+          sha256sum twoPhaseSens_0.1.0.tar.gz
+
+      - name: Full R CMD check --as-cran
+        run: |
+          set -o pipefail
+          R CMD check --as-cran twoPhaseSens_0.1.0.tar.gz 2>&1 | tee full-cran-check.log
+
+      - name: Show check summary
+        if: always()
+        run: |
+          if [ -f twoPhaseSens.Rcheck/00check.log ]; then
+            cat twoPhaseSens.Rcheck/00check.log
+          fi
+
+      - name: Upload final validation artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: twoPhaseSens-0.1.0-final-validation
+          path: |
+            twoPhaseSens_0.1.0.tar.gz
+            full-cran-check.log
+            twoPhaseSens.Rcheck/00check.log
+            twoPhaseSens.Rcheck/twoPhaseSens-manual.pdf
+          if-no-files-found: warn
