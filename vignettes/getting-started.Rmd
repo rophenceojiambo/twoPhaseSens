@@ -137,13 +137,13 @@ tbl_sensitivity(
 
 # Customize displayed precision
 
-Formatting does not change the underlying model estimates.
+By default, coefficients and confidence limits are displayed to three decimal places, and p values are displayed to three decimal places. Formatting does not change the underlying model estimates.
 
 ```{r decimals}
 tbl_sensitivity(
   fit_one,
   outcome_labels = c(outcome1 = "Outcome 1"),
-  estimate_digits = 3,
+  estimate_digits = 2,
   p_digits = 4,
   output = "data.frame"
 )
