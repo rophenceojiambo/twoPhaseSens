@@ -86,3 +86,25 @@ test_that("invalid table label specifications are rejected", {
     "Unknown outcome"
   )
 })
+
+
+test_that("default sensitivity table displays estimates and confidence intervals to three decimals", {
+  dat <- .make_synthetic_twophase_data(n = 500L, seed = 77L)
+  ans <- twophase_sensitivity(
+    dat,
+    outcome = "y",
+    exposure = "a",
+    covariates = c("age", "sex"),
+    phase2_covariates = c("m1", "m2"),
+    phase2 = "phase2",
+    methods = c("naive", "cca")
+  )
+
+  tab <- tbl_sensitivity(ans, output = "data.frame")
+  vals <- tab[["y Coefficient (95% CI)"]]
+
+  expect_true(all(grepl(
+    "^-?[0-9]+\\.[0-9]{3} \\(-?[0-9]+\\.[0-9]{3} to -?[0-9]+\\.[0-9]{3}\\)$",
+    vals
+  )))
+})
