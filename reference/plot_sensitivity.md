@@ -89,7 +89,7 @@ plot(x, ...)
 - estimate_digits:
 
   Number of digits used in the coefficient and confidence-interval
-  annotation.
+  annotation. The default is 3.
 
 - p_digits:
 

@@ -162,13 +162,15 @@ tbl_sensitivity(
   output = "data.frame"
 )
 #>   Method Outcome 1 Coefficient (95% CI) Outcome 1 P value
-#> 1  Naive      0.4622 (0.3533 to 0.5711)            <0.001
-#> 2    CCA      0.2813 (0.1190 to 0.4435)            <0.001
-#> 3    IPW      0.2642 (0.0988 to 0.4296)             0.002
+#> 1  Naive         0.462 (0.353 to 0.571)            <0.001
+#> 2    CCA         0.281 (0.119 to 0.443)            <0.001
+#> 3    IPW         0.264 (0.099 to 0.430)             0.002
 ```
 
 ## Customize displayed precision
 
+By default, coefficients and confidence limits are displayed to three
+decimal places, and p values are displayed to three decimal places.
 Formatting does not change the underlying model estimates.
 
 ``` r
@@ -176,14 +178,14 @@ Formatting does not change the underlying model estimates.
 tbl_sensitivity(
   fit_one,
   outcome_labels = c(outcome1 = "Outcome 1"),
-  estimate_digits = 3,
+  estimate_digits = 2,
   p_digits = 4,
   output = "data.frame"
 )
 #>   Method Outcome 1 Coefficient (95% CI) Outcome 1 P value
-#> 1  Naive         0.462 (0.353 to 0.571)           <0.0001
-#> 2    CCA         0.281 (0.119 to 0.443)            0.0008
-#> 3    IPW         0.264 (0.099 to 0.430)            0.0017
+#> 1  Naive            0.46 (0.35 to 0.57)           <0.0001
+#> 2    CCA            0.28 (0.12 to 0.44)            0.0008
+#> 3    IPW            0.26 (0.10 to 0.43)            0.0017
 ```
 
 Users can also add a separate SE column:
@@ -197,9 +199,9 @@ tbl_sensitivity(
   output = "data.frame"
 )
 #>   Method Outcome 1 Coefficient (95% CI) Outcome 1 SE Outcome 1 P value
-#> 1  Naive      0.4622 (0.3533 to 0.5711)       0.0553            <0.001
-#> 2    CCA      0.2813 (0.1190 to 0.4435)       0.0823            <0.001
-#> 3    IPW      0.2642 (0.0988 to 0.4296)       0.0844             0.002
+#> 1  Naive         0.462 (0.353 to 0.571)        0.055            <0.001
+#> 2    CCA         0.281 (0.119 to 0.443)        0.082            <0.001
+#> 3    IPW         0.264 (0.099 to 0.430)        0.084             0.002
 ```
 
 ## Run multiple outcomes
@@ -363,8 +365,8 @@ tbl_sensitivity(
   output = "data.frame"
 )
 #>   Method Outcome 1 Coefficient (95% CI) Outcome 1 P value
-#> 1  Naive      0.4622 (0.3709 to 0.5535)            <0.001
-#> 2    CCA      0.2813 (0.1453 to 0.4172)            <0.001
+#> 1  Naive         0.462 (0.371 to 0.553)            <0.001
+#> 2    CCA         0.281 (0.145 to 0.417)            <0.001
 ```
 
 ## Inspect diagnostics
@@ -589,9 +591,9 @@ tbl_sensitivity(
   output = "data.frame"
 )
 #>          Method Primary outcome Coefficient (95% CI) Primary outcome P value
-#> 1 Phase-1 naive            0.4622 (0.3533 to 0.5711)                  <0.001
-#> 2 Complete case            0.2813 (0.1190 to 0.4435)                  <0.001
-#> 3           IPW            0.2642 (0.0988 to 0.4296)                   0.002
+#> 1 Phase-1 naive               0.462 (0.353 to 0.571)                  <0.001
+#> 2 Complete case               0.281 (0.119 to 0.443)                  <0.001
+#> 3           IPW               0.264 (0.099 to 0.430)                   0.002
 ```
 
 ## What the package currently assumes

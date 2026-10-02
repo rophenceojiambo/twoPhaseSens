@@ -669,17 +669,17 @@ table.</p>
 <tbody class="gt_table_body">
 <tr>
 <td headers="label" class="gt_row gt_left">Naive</td>
-<td headers="estimate_1" class="gt_row gt_center">0.4622 (0.3533 to 0.5711)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.462 (0.353 to 0.571)</td>
 <td headers="p_1" class="gt_row gt_center">&lt;0.001</td>
 </tr>
 <tr>
 <td headers="label" class="gt_row gt_left">CCA</td>
-<td headers="estimate_1" class="gt_row gt_center">0.2813 (0.1190 to 0.4435)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.281 (0.119 to 0.443)</td>
 <td headers="p_1" class="gt_row gt_center">&lt;0.001</td>
 </tr>
 <tr>
 <td headers="label" class="gt_row gt_left">IPW</td>
-<td headers="estimate_1" class="gt_row gt_center">0.2642 (0.0988 to 0.4296)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.264 (0.099 to 0.430)</td>
 <td headers="p_1" class="gt_row gt_center">0.002</td>
 </tr>
 </tbody>
@@ -693,26 +693,28 @@ table.</p>
 <span>  output <span class="op">=</span> <span class="st">"data.frame"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Method Outcome 1 Coefficient (95% CI) Outcome 1 P value</span></span>
-<span><span class="co">#&gt; 1  Naive      0.4622 (0.3533 to 0.5711)            &lt;0.001</span></span>
-<span><span class="co">#&gt; 2    CCA      0.2813 (0.1190 to 0.4435)            &lt;0.001</span></span>
-<span><span class="co">#&gt; 3    IPW      0.2642 (0.0988 to 0.4296)             0.002</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  Naive         0.462 (0.353 to 0.571)            &lt;0.001</span></span>
+<span><span class="co">#&gt; 2    CCA         0.281 (0.119 to 0.443)            &lt;0.001</span></span>
+<span><span class="co">#&gt; 3    IPW         0.264 (0.099 to 0.430)             0.002</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="customize-displayed-precision">Customize displayed precision<a class="anchor" aria-label="anchor" href="#customize-displayed-precision"></a>
 </h2>
-<p>Formatting does not change the underlying model estimates.</p>
+<p>By default, coefficients and confidence limits are displayed to three
+decimal places, and p values are displayed to three decimal places.
+Formatting does not change the underlying model estimates.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tbl_sensitivity.html">tbl_sensitivity</a></span><span class="op">(</span></span>
 <span>  <span class="va">fit_one</span>,</span>
 <span>  outcome_labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>outcome1 <span class="op">=</span> <span class="st">"Outcome 1"</span><span class="op">)</span>,</span>
-<span>  estimate_digits <span class="op">=</span> <span class="fl">3</span>,</span>
+<span>  estimate_digits <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  p_digits <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>  output <span class="op">=</span> <span class="st">"data.frame"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Method Outcome 1 Coefficient (95% CI) Outcome 1 P value</span></span>
-<span><span class="co">#&gt; 1  Naive         0.462 (0.353 to 0.571)           &lt;0.0001</span></span>
-<span><span class="co">#&gt; 2    CCA         0.281 (0.119 to 0.443)            0.0008</span></span>
-<span><span class="co">#&gt; 3    IPW         0.264 (0.099 to 0.430)            0.0017</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  Naive            0.46 (0.35 to 0.57)           &lt;0.0001</span></span>
+<span><span class="co">#&gt; 2    CCA            0.28 (0.12 to 0.44)            0.0008</span></span>
+<span><span class="co">#&gt; 3    IPW            0.26 (0.10 to 0.43)            0.0017</span></span></code></pre></div>
 <p>Users can also add a separate SE column:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/tbl_sensitivity.html">tbl_sensitivity</a></span><span class="op">(</span></span>
@@ -722,9 +724,9 @@ table.</p>
 <span>  output <span class="op">=</span> <span class="st">"data.frame"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Method Outcome 1 Coefficient (95% CI) Outcome 1 SE Outcome 1 P value</span></span>
-<span><span class="co">#&gt; 1  Naive      0.4622 (0.3533 to 0.5711)       0.0553            &lt;0.001</span></span>
-<span><span class="co">#&gt; 2    CCA      0.2813 (0.1190 to 0.4435)       0.0823            &lt;0.001</span></span>
-<span><span class="co">#&gt; 3    IPW      0.2642 (0.0988 to 0.4296)       0.0844             0.002</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  Naive         0.462 (0.353 to 0.571)        0.055            &lt;0.001</span></span>
+<span><span class="co">#&gt; 2    CCA         0.281 (0.119 to 0.443)        0.082            &lt;0.001</span></span>
+<span><span class="co">#&gt; 3    IPW         0.264 (0.099 to 0.430)        0.084             0.002</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="run-multiple-outcomes">Run multiple outcomes<a class="anchor" aria-label="anchor" href="#run-multiple-outcomes"></a>
@@ -1228,23 +1230,23 @@ example, the two outcomes use seeds 2001 and 2002.</p>
 <tbody class="gt_table_body">
 <tr>
 <td headers="label" class="gt_row gt_left">Naive</td>
-<td headers="estimate_1" class="gt_row gt_center">0.4622 (0.3533 to 0.5711)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.462 (0.353 to 0.571)</td>
 <td headers="p_1" class="gt_row gt_center">&lt;0.001</td>
-<td headers="estimate_2" class="gt_row gt_center">0.1876 (0.0621 to 0.3132)</td>
+<td headers="estimate_2" class="gt_row gt_center">0.188 (0.062 to 0.313)</td>
 <td headers="p_2" class="gt_row gt_center">0.004</td>
 </tr>
 <tr>
 <td headers="label" class="gt_row gt_left">CCA</td>
-<td headers="estimate_1" class="gt_row gt_center">0.2813 (0.1190 to 0.4435)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.281 (0.119 to 0.443)</td>
 <td headers="p_1" class="gt_row gt_center">&lt;0.001</td>
-<td headers="estimate_2" class="gt_row gt_center">0.2302 (0.0555 to 0.4048)</td>
+<td headers="estimate_2" class="gt_row gt_center">0.230 (0.056 to 0.405)</td>
 <td headers="p_2" class="gt_row gt_center">0.010</td>
 </tr>
 <tr>
 <td headers="label" class="gt_row gt_left">IPW</td>
-<td headers="estimate_1" class="gt_row gt_center">0.2642 (0.0988 to 0.4296)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.264 (0.099 to 0.430)</td>
 <td headers="p_1" class="gt_row gt_center">0.002</td>
-<td headers="estimate_2" class="gt_row gt_center">0.2171 (0.0621 to 0.3721)</td>
+<td headers="estimate_2" class="gt_row gt_center">0.217 (0.062 to 0.372)</td>
 <td headers="p_2" class="gt_row gt_center">0.006</td>
 </tr>
 </tbody>
@@ -1764,17 +1766,17 @@ subset.</p>
 <tbody class="gt_table_body">
 <tr>
 <td headers="label" class="gt_row gt_left">CCA</td>
-<td headers="estimate_1" class="gt_row gt_center">0.2813 (0.1190 to 0.4435)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.281 (0.119 to 0.443)</td>
 <td headers="p_1" class="gt_row gt_center">&lt;0.001</td>
 </tr>
 <tr>
 <td headers="label" class="gt_row gt_left">FCS-MI</td>
-<td headers="estimate_1" class="gt_row gt_center">0.3008 (0.1729 to 0.4287)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.301 (0.173 to 0.429)</td>
 <td headers="p_1" class="gt_row gt_center">&lt;0.001</td>
 </tr>
 <tr>
 <td headers="label" class="gt_row gt_left">IPW</td>
-<td headers="estimate_1" class="gt_row gt_center">0.2642 (0.0988 to 0.4296)</td>
+<td headers="estimate_1" class="gt_row gt_center">0.264 (0.099 to 0.430)</td>
 <td headers="p_1" class="gt_row gt_center">0.002</td>
 </tr>
 </tbody>
@@ -1843,8 +1845,8 @@ level.</p>
 <span>  output <span class="op">=</span> <span class="st">"data.frame"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;   Method Outcome 1 Coefficient (95% CI) Outcome 1 P value</span></span>
-<span><span class="co">#&gt; 1  Naive      0.4622 (0.3709 to 0.5535)            &lt;0.001</span></span>
-<span><span class="co">#&gt; 2    CCA      0.2813 (0.1453 to 0.4172)            &lt;0.001</span></span></code></pre></div>
+<span><span class="co">#&gt; 1  Naive         0.462 (0.371 to 0.553)            &lt;0.001</span></span>
+<span><span class="co">#&gt; 2    CCA         0.281 (0.145 to 0.417)            &lt;0.001</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="inspect-diagnostics">Inspect diagnostics<a class="anchor" aria-label="anchor" href="#inspect-diagnostics"></a>
@@ -2025,9 +2027,9 @@ results.</p>
 <span>  output <span class="op">=</span> <span class="st">"data.frame"</span></span>
 <span><span class="op">)</span></span>
 <span><span class="co">#&gt;          Method Primary outcome Coefficient (95% CI) Primary outcome P value</span></span>
-<span><span class="co">#&gt; 1 Phase-1 naive            0.4622 (0.3533 to 0.5711)                  &lt;0.001</span></span>
-<span><span class="co">#&gt; 2 Complete case            0.2813 (0.1190 to 0.4435)                  &lt;0.001</span></span>
-<span><span class="co">#&gt; 3           IPW            0.2642 (0.0988 to 0.4296)                   0.002</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 Phase-1 naive               0.462 (0.353 to 0.571)                  &lt;0.001</span></span>
+<span><span class="co">#&gt; 2 Complete case               0.281 (0.119 to 0.443)                  &lt;0.001</span></span>
+<span><span class="co">#&gt; 3           IPW               0.264 (0.099 to 0.430)                   0.002</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="what-the-package-currently-assumes">What the package currently assumes<a class="anchor" aria-label="anchor" href="#what-the-package-currently-assumes"></a>

@@ -11,7 +11,7 @@ A plain data frame can be requested for downstream custom formatting.
 ``` r
 tbl_sensitivity(
   x,
-  estimate_digits = 4L,
+  estimate_digits = 3L,
   p_digits = 3L,
   include_se = FALSE,
   method_labels = NULL,
@@ -29,7 +29,8 @@ tbl_sensitivity(
 
 - estimate_digits:
 
-  Number of digits for estimates and confidence limits.
+  Number of digits for estimates and confidence limits. The default is
+  3.
 
 - p_digits:
 
@@ -80,7 +81,7 @@ fit <- twophase_sensitivity(
 )
 tbl_sensitivity(fit, output = "data.frame")
 #>   Method outcome1 Coefficient (95% CI) outcome1 P value
-#> 1  Naive     0.4074 (0.2708 to 0.5439)           <0.001
-#> 2    CCA     0.2352 (0.0192 to 0.4513)            0.033
-#> 3    IPW     0.2335 (0.0234 to 0.4435)            0.029
+#> 1  Naive        0.407 (0.271 to 0.544)           <0.001
+#> 2    CCA        0.235 (0.019 to 0.451)            0.033
+#> 3    IPW        0.233 (0.023 to 0.444)            0.029
 ```

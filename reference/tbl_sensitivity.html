@@ -51,7 +51,7 @@ frame can be requested for downstream custom formatting.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tbl_sensitivity</span><span class="op">(</span></span>
 <span>  <span class="va">x</span>,</span>
-<span>  estimate_digits <span class="op">=</span> <span class="fl">4L</span>,</span>
+<span>  estimate_digits <span class="op">=</span> <span class="fl">3L</span>,</span>
 <span>  p_digits <span class="op">=</span> <span class="fl">3L</span>,</span>
 <span>  include_se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  method_labels <span class="op">=</span> <span class="cn">NULL</span>,</span>
@@ -70,7 +70,7 @@ frame can be requested for downstream custom formatting.</p>
 
 
 <dt id="arg-estimate-digits">estimate_digits<a class="anchor" aria-label="anchor" href="#arg-estimate-digits"></a></dt>
-<dd><p>Number of digits for estimates and confidence limits.</p></dd>
+<dd><p>Number of digits for estimates and confidence limits. The default is 3.</p></dd>
 
 
 <dt id="arg-p-digits">p_digits<a class="anchor" aria-label="anchor" href="#arg-p-digits"></a></dt>
@@ -123,9 +123,9 @@ an unnamed vector in the same order as <code>x$specification$outcome</code>.</p>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">tbl_sensitivity</span><span class="op">(</span><span class="va">fit</span>, output <span class="op">=</span> <span class="st">"data.frame"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method outcome1 Coefficient (95% CI) outcome1 P value</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Naive     0.4074 (0.2708 to 0.5439)           &lt;0.001</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2    CCA     0.2352 (0.0192 to 0.4513)            0.033</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3    IPW     0.2335 (0.0234 to 0.4435)            0.029</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Naive        0.407 (0.271 to 0.544)           &lt;0.001</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2    CCA        0.235 (0.019 to 0.451)            0.033</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3    IPW        0.233 (0.023 to 0.444)            0.029</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
