@@ -6,7 +6,7 @@
 \usage{
 tbl_sensitivity(
   x,
-  estimate_digits = 4L,
+  estimate_digits = 3L,
   p_digits = 3L,
   include_se = FALSE,
   method_labels = NULL,
@@ -18,7 +18,7 @@ tbl_sensitivity(
 \arguments{
 \item{x}{A \code{twophase_sensitivity} object.}
 
-\item{estimate_digits}{Number of digits for estimates and confidence limits.}
+\item{estimate_digits}{Number of digits for estimates and confidence limits. The default is 3.}
 
 \item{p_digits}{Number of digits for p values.}
 
