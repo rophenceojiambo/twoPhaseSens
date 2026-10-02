@@ -6,7 +6,7 @@
 #' frame can be requested for downstream custom formatting.
 #'
 #' @param x A `twophase_sensitivity` object.
-#' @param estimate_digits Number of digits for estimates and confidence limits.
+#' @param estimate_digits Number of digits for estimates and confidence limits. The default is 3.
 #' @param p_digits Number of digits for p values.
 #' @param include_se Logical; include a separate standard-error column for each
 #'   outcome.
@@ -39,7 +39,7 @@
 #' @export
 tbl_sensitivity <- function(
   x,
-  estimate_digits = 4L,
+  estimate_digits = 3L,
   p_digits = 3L,
   include_se = FALSE,
   method_labels = NULL,
