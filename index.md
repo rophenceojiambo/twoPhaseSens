@@ -30,11 +30,12 @@ Install version `0.1.0` from GitHub with:
 ``` r
 
 # install.packages("remotes")
-remotes::install_github(
-  "rophenceojiambo/twoPhaseSens",
-  upgrade = "never"
-)
+remotes::install_github("rophenceojiambo/twoPhaseSens")
 ```
+
+By default, `remotes` may ask whether to update older installed
+dependencies. Users who specifically want to avoid upgrading
+already-installed packages can instead use `upgrade = "never"`.
 
 After the package is available on CRAN, it can also be installed with
 `install.packages("twoPhaseSens")`.
