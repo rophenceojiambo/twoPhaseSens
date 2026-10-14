@@ -42,13 +42,20 @@ dat <- twophase_example_data(
 )
 
 head(dat)
-#>     outcome1    outcome2   exposure         age    sex     marker1    marker2    marker3 phase2
-#> 1  0.9895852  1.38415052 0.51890562  0.52058907   Male  0.84668135  1.3891621  0.3881836      1
-#> 2  1.7813383  0.47466899 1.13539238 -1.07969076 Female  0.32455848 -1.0859213  0.5020183      1
-#> 3 -0.9255271 -0.20621922 0.31240446  0.13923812   Male          NA         NA         NA      0
-#> 4  0.9438086  0.01293047 0.05554413 -0.08474878 Female -0.07300875  0.1480152  1.2164758      1
-#> 5 -0.1282578  1.00813662 1.56545282 -0.66663962 Female  0.38867189  0.1482767 -0.7790284      1
-#> 6 -1.1347119  0.94896017 0.71883077 -2.51608903   Male          NA         NA         NA      0
+#>     outcome1    outcome2   exposure         age    sex     marker1    marker2
+#> 1  0.9895852  1.38415052 0.51890562  0.52058907   Male  0.84668135  1.3891621
+#> 2  1.7813383  0.47466899 1.13539238 -1.07969076 Female  0.32455848 -1.0859213
+#> 3 -0.9255271 -0.20621922 0.31240446  0.13923812   Male          NA         NA
+#> 4  0.9438086  0.01293047 0.05554413 -0.08474878 Female -0.07300875  0.1480152
+#> 5 -0.1282578  1.00813662 1.56545282 -0.66663962 Female  0.38867189  0.1482767
+#> 6 -1.1347119  0.94896017 0.71883077 -2.51608903   Male          NA         NA
+#>      marker3 phase2
+#> 1  0.3881836      1
+#> 2  0.5020183      1
+#> 3         NA      0
+#> 4  1.2164758      1
+#> 5 -0.7790284      1
+#> 6         NA      0
 ```
 
 The example contains:
@@ -124,10 +131,14 @@ settings, and available diagnostics.
 ``` r
 
 summary(fit_one)
-#>    outcome exposure method  estimate         se   conf_low conf_high      p_value  df status message N_phase1 N_phase2 phase2_fraction
-#> 1 outcome1 exposure  Naive 0.4621799 0.05532648 0.35329675 0.5710630 2.591790e-15 296     ok    <NA>      300      201            0.67
-#> 2 outcome1 exposure    CCA 0.2812535 0.08226308 0.11900865 0.4434982 7.661356e-04 194     ok    <NA>      300      201            0.67
-#> 3 outcome1 exposure    IPW 0.2642349 0.08438535 0.09884266 0.4296272 1.740409e-03 Inf     ok    <NA>      300      201            0.67
+#>    outcome exposure method  estimate         se   conf_low conf_high
+#> 1 outcome1 exposure  Naive 0.4621799 0.05532648 0.35329675 0.5710630
+#> 2 outcome1 exposure    CCA 0.2812535 0.08226308 0.11900865 0.4434982
+#> 3 outcome1 exposure    IPW 0.2642349 0.08438535 0.09884266 0.4296272
+#>        p_value  df status message N_phase1 N_phase2 phase2_fraction
+#> 1 2.591790e-15 296     ok    <NA>      300      201            0.67
+#> 2 7.661356e-04 194     ok    <NA>      300      201            0.67
+#> 3 1.740409e-03 Inf     ok    <NA>      300      201            0.67
 #>   analysis_seed weight_min weight_p99 weight_max weight_cv weight_ess
 #> 1          1001         NA         NA         NA        NA         NA
 #> 2          1001         NA         NA         NA        NA         NA
@@ -380,14 +391,22 @@ method-specific diagnostics:
 ``` r
 
 diagnostics(fit_one)
-#>    outcome method status message N_phase1 N_phase2 phase2_fraction analysis_seed n_imputations mice_maxit jomo_nburn jomo_nbetween
-#> 1 outcome1  Naive     ok    <NA>      300      201            0.67          1001            NA         NA         NA            NA
-#> 2 outcome1    CCA     ok    <NA>      300      201            0.67          1001            NA         NA         NA            NA
-#> 3 outcome1    IPW     ok    <NA>      300      201            0.67          1001            NA         NA         NA            NA
-#>   mi_logged_events weight_min weight_p99 weight_max weight_cv weight_ess weight_ess_fraction
-#> 1               NA         NA         NA         NA        NA         NA                  NA
-#> 2               NA         NA         NA         NA        NA         NA                  NA
-#> 3               NA   1.086953    2.17709   2.289151 0.1612134   195.9331           0.9747914
+#>    outcome method status message N_phase1 N_phase2 phase2_fraction
+#> 1 outcome1  Naive     ok    <NA>      300      201            0.67
+#> 2 outcome1    CCA     ok    <NA>      300      201            0.67
+#> 3 outcome1    IPW     ok    <NA>      300      201            0.67
+#>   analysis_seed n_imputations mice_maxit jomo_nburn jomo_nbetween
+#> 1          1001            NA         NA         NA            NA
+#> 2          1001            NA         NA         NA            NA
+#> 3          1001            NA         NA         NA            NA
+#>   mi_logged_events weight_min weight_p99 weight_max weight_cv weight_ess
+#> 1               NA         NA         NA         NA        NA         NA
+#> 2               NA         NA         NA         NA        NA         NA
+#> 3               NA   1.086953    2.17709   2.289151 0.1612134   195.9331
+#>   weight_ess_fraction
+#> 1                  NA
+#> 2                  NA
+#> 3           0.9747914
 ```
 
 A compact status view is available with:
@@ -395,10 +414,14 @@ A compact status view is available with:
 ``` r
 
 diagnostics(fit_one, type = "status")
-#>    outcome method status message N_phase1 N_phase2 phase2_fraction analysis_seed
-#> 1 outcome1  Naive     ok    <NA>      300      201            0.67          1001
-#> 2 outcome1    CCA     ok    <NA>      300      201            0.67          1001
-#> 3 outcome1    IPW     ok    <NA>      300      201            0.67          1001
+#>    outcome method status message N_phase1 N_phase2 phase2_fraction
+#> 1 outcome1  Naive     ok    <NA>      300      201            0.67
+#> 2 outcome1    CCA     ok    <NA>      300      201            0.67
+#> 3 outcome1    IPW     ok    <NA>      300      201            0.67
+#>   analysis_seed
+#> 1          1001
+#> 2          1001
+#> 3          1001
 ```
 
 For IPW and AIPW, request weight diagnostics directly:
@@ -406,8 +429,10 @@ For IPW and AIPW, request weight diagnostics directly:
 ``` r
 
 diagnostics(fit_one, type = "weights")
-#>    outcome method status message N_phase1 N_phase2 phase2_fraction analysis_seed weight_min weight_p99 weight_max weight_cv weight_ess
-#> 1 outcome1    IPW     ok    <NA>      300      201            0.67          1001   1.086953    2.17709   2.289151 0.1612134   195.9331
+#>    outcome method status message N_phase1 N_phase2 phase2_fraction
+#> 1 outcome1    IPW     ok    <NA>      300      201            0.67
+#>   analysis_seed weight_min weight_p99 weight_max weight_cv weight_ess
+#> 1          1001   1.086953    2.17709   2.289151 0.1612134   195.9331
 #>   weight_ess_fraction
 #> 1           0.9747914
 ```
@@ -435,10 +460,14 @@ diagnostics(
   outcome = "outcome2",
   method = "ipw"
 )
-#>    outcome method status message N_phase1 N_phase2 phase2_fraction analysis_seed n_imputations mice_maxit jomo_nburn jomo_nbetween
-#> 1 outcome2    IPW     ok    <NA>      300      201            0.67          2002            NA         NA         NA            NA
-#>   mi_logged_events weight_min weight_p99 weight_max weight_cv weight_ess weight_ess_fraction
-#> 1               NA    1.09867   2.180324   2.518771 0.1606412   195.9681           0.9749656
+#>    outcome method status message N_phase1 N_phase2 phase2_fraction
+#> 1 outcome2    IPW     ok    <NA>      300      201            0.67
+#>   analysis_seed n_imputations mice_maxit jomo_nburn jomo_nbetween
+#> 1          2002            NA         NA         NA            NA
+#>   mi_logged_events weight_min weight_p99 weight_max weight_cv weight_ess
+#> 1               NA    1.09867   2.180324   2.518771 0.1606412   195.9681
+#>   weight_ess_fraction
+#> 1           0.9749656
 ```
 
 The package reports diagnostic quantities but does not automatically
