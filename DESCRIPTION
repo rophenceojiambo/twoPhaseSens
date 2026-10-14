@@ -9,13 +9,14 @@ Description: Provides a structured method-comparison sensitivity-analysis
     imputation, joint-model multiple imputation, inverse probability
     weighting, and augmented inverse probability weighting, with standardized
     tables, diagnostics, and publication-style forest plots. Methodological
-    background is provided by White and Carlin (2010)
-    <doi:10.1002/sim.3944> for complete-case analysis with missing covariates,
-    White, Royston and Wood (2011) <doi:10.1002/sim.4067> and van Buuren and
-    Groothuis-Oudshoorn (2011) <doi:10.18637/jss.v045.i03> for
-    chained-equations multiple imputation, Quartagno, Grund and Carpenter
-    (2019) <doi:10.32614/RJ-2019-028> for joint-model multiple imputation,
-    Robins, Rotnitzky and Zhao (1994)
+    background is provided by Little and Rubin (2019)
+    <doi:10.1002/9781119482260> for general missing-data methods, White and
+    Carlin (2010) <doi:10.1002/sim.3944> for complete-case analysis with
+    missing covariates, White, Royston and Wood (2011)
+    <doi:10.1002/sim.4067> and van Buuren and Groothuis-Oudshoorn (2011)
+    <doi:10.18637/jss.v045.i03> for chained-equations multiple imputation,
+    Quartagno, Grund and Carpenter (2019) <doi:10.32614/RJ-2019-028> for
+    joint-model multiple imputation, Robins, Rotnitzky and Zhao (1994)
     <doi:10.1080/01621459.1994.10476818> for inverse-probability weighting
     with missing regressors, and Bang and Robins (2005)
     <doi:10.1111/j.1541-0420.2005.00377.x> for doubly robust estimation.
