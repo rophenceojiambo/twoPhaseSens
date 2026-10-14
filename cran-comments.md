@@ -6,8 +6,10 @@ Changes made:
 * Added methodological references with DOI links to the DESCRIPTION field for
   FCS multiple imputation, joint-model multiple imputation, and
   inverse-probability/augmented inverse-probability methods.
-* Removed the vignette-level `options(width = 140)` call so the vignette does
-  not modify a user's global R options.
+* Updated the vignette's console-width handling to save the user's existing
+  options before setting `width = 140`, then restore the original options in
+  a hidden cleanup chunk at the end of the vignette. This preserves readable
+  tabular output without leaving the user's global R options changed.
 
 ## Test environments
 
