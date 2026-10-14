@@ -14,6 +14,11 @@ knitr::opts_chunk$set(
   fig.width = 7,
   fig.height = 5
 )
+
+# Use a wider console width for readable tabular output, while preserving and
+# restoring the user's original option at the end of the vignette.
+old_options <- options(width = 140)
+
 library(twoPhaseSens)
 ```
 
@@ -520,6 +525,35 @@ statistical significance on the user's behalf. Method selection should reflect
 the study design, scientific assumptions, and the methodological properties of
 the estimators.
 
+# Methodological references
+
+The methods implemented in `twoPhaseSens` are grounded in the following
+references. These are also cited in the package `DESCRIPTION` metadata where
+appropriate.
+
+- Little RJA, Rubin DB (2019). *Statistical Analysis with Missing Data*, 3rd ed.
+  <https://doi.org/10.1002/9781119482260>
+- White IR, Carlin JB (2010). "Bias and efficiency of multiple imputation
+  compared with complete-case analysis for missing covariate values."
+  *Statistics in Medicine*, 29(28), 2920--2931.
+  <https://doi.org/10.1002/sim.3944>
+- White IR, Royston P, Wood AM (2011). "Multiple imputation using chained
+  equations: issues and guidance for practice." *Statistics in Medicine*,
+  30(4), 377--399. <https://doi.org/10.1002/sim.4067>
+- van Buuren S, Groothuis-Oudshoorn K (2011). "mice: Multivariate imputation
+  by chained equations in R." *Journal of Statistical Software*, 45(3), 1--67.
+  <https://doi.org/10.18637/jss.v045.i03>
+- Quartagno M, Grund S, Carpenter J (2019). "jomo: A flexible package for
+  two-level joint modelling multiple imputation." *The R Journal*, 11(2),
+  205--228. <https://doi.org/10.32614/RJ-2019-028>
+- Robins JM, Rotnitzky A, Zhao LP (1994). "Estimation of regression
+  coefficients when some regressors are not always observed." *Journal of the
+  American Statistical Association*, 89(427), 846--866.
+  <https://doi.org/10.1080/01621459.1994.10476818>
+- Bang H, Robins JM (2005). "Doubly robust estimation in missing data and
+  causal inference models." *Biometrics*, 61(4), 962--973.
+  <https://doi.org/10.1111/j.1541-0420.2005.00377.x>
+
 # Reproducibility
 
 For analyses that involve stochastic imputation:
@@ -531,3 +565,8 @@ For analyses that involve stochastic imputation:
 
 The table's decimal controls affect display only. They do not round or overwrite
 the underlying estimates stored in the fitted object.
+
+
+```{r restore-options, include=FALSE}
+options(old_options)
+```
