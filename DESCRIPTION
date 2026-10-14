@@ -8,7 +8,11 @@ Description: Provides a structured method-comparison sensitivity-analysis
     analysis, complete-case analysis, fully conditional specification multiple
     imputation, joint-model multiple imputation, inverse probability
     weighting, and augmented inverse probability weighting, with standardized
-    tables, diagnostics, and publication-style forest plots.
+    tables, diagnostics, and publication-style forest plots. Methodological
+    background is provided by van Buuren and Groothuis-Oudshoorn (2011)
+    <doi:10.18637/jss.v045.i03>, Quartagno, Grund and Carpenter (2019)
+    <doi:10.32614/RJ-2019-028>, and Robins, Rotnitzky and Zhao (1994)
+    <doi:10.1080/01621459.1994.10476818>.
 License: MIT + file LICENSE
 URL: https://rophenceojiambo.github.io/twoPhaseSens/, https://github.com/rophenceojiambo/twoPhaseSens
 BugReports: https://github.com/rophenceojiambo/twoPhaseSens/issues
