@@ -1,3 +1,14 @@
+## Resubmission
+
+This is a resubmission following CRAN manual-review feedback.
+
+Changes made:
+* Added methodological references with DOI links to the DESCRIPTION field for
+  FCS multiple imputation, joint-model multiple imputation, and
+  inverse-probability/augmented inverse-probability methods.
+* Removed the vignette-level `options(width = 140)` call so the vignette does
+  not modify a user's global R options.
+
 ## Test environments
 
 * GitHub Actions:
